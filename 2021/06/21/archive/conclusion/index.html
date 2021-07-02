@@ -1,0 +1,584 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个普通Java工程师的分享">
+  <meta name="author" content="robin.li">
+  <meta name="keywords" content="Java JavaScript Linux Spring-Boot MySQL Blog ljy">
+  
+  <title>简单总结 - robin技术总结</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"robin-code.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","app_key":"NOvQqkfNpn6NpGU7zUG0V5sb","server_url":"https://arc7mtb3.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>robin's space</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="简单总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-21 10:40" pubdate>
+        星期一 2021年06月21日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      50
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">简单总结</h1>
+            
+            <div class="markdown-body">
+              <h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍:"></a>项目介绍:</h2><p>系统后台这里包含爱专教运营团队使用的内部运营系统。<br>此后台提供排课，约课系统的一切信息，教务，运营事物，包括学生老师班级订单管理的操作，管理，设置等等，是系统核心的后台管理系统<br>外部机构端后台管理系统，<br>机构校区管理，班级类型管理，教材管理，教学资源管理，<br>排课系统等模块。提供外部接口对接<br>营销助手功能<br>个人职责:<br>外教质量管理模块开发<br>课后报告：<br>云护航中教上课，<br>spring-cloud-gateway： 身份统一认证，授权，跨域处理,根据ip限流<br>路由重写：id, uri ,匹配条件： predicates[],<br>filter<br>重写的path<br>spring-cloud-feign : rpc框架  json-api 声明式服务调用<br>restTemplate<br>swagger api文档，confluence 静态文档<br>post 脚本<br>自动化测试部门会进行压力测试<br>apache ab test<br>接口参数 需要进行校验的全部校验，string枚举校验<br>非空校验，数组非空校验， id 正整数校验，日期格式化校验，日期时间 utc 格式校验，<br>接口时间范围，分页，<br>mybatis, spring data jpa,<br>jwt 认证<br>apollo 配置中心 : 动态修改日志级别，jms开关，批量数据，动态开关，cors跨域动态刷新<br>xxl-job 分布式定时任务 ： 用来做定时执行任务<br>nosql : redis  memcache缓存<br>redis 踩坑：key重复了，<br>memcache 踩坑： 有效时间最长30天的秒数，超过这个数字会变为unix时间戳<br>redission分布式锁<br>caffeine/ehcache 本地缓存<br>spring-boot-admin 试试监控，日志查看，<br>sentry 错误日志收集<br>sonar 静态代码检测<br>elk日志手机分析<br>jacoco 单元测试覆盖报告<br>grafana 性能监控，重要指标采集 :实时在线老师学生数目，排课房间数 在线房间数，排课老师数目，在线老师数目，<br>统计接口响应时间，400数目，500数目，成功接口响应时间的分布<br>项目统一异常处理<br>controllerAdvice 统一异常处理，主要处理400参数错误，500服务器错误<br>zipkin链路追踪<br>junit5 mockito 单元测试<br>spring data jpa<br>maxen-data数据服务<br>定时<br>redis 并发竞争key<br>分布式锁<br>操作系统知识<br>Mysql<br>mvcc 解决了什么<br>简而言之就是解决了在REPEATABLE READ和READ COMMITTED两个隔离级别下读同一行和写同一行的两个事务的并发。<br>redis哨兵模式原理 为何没有用集群模式<br>跳表<br>zset原理<br>string key怎么设计的<br>redis key过期策略<br>redission 如何实现分布式锁<br>查key,不存在，设置 thread 1<br>表示 这个客户端对这个key加锁完成了<br>存在 +1<br>设置超时时间  默认30s<br>加锁机制<br>四次挥手<br>客户端 fin<br>服务端 ack syn<br>服务端 fin<br>客户端 syn<br>等待2 msl<br>等待两个报文最大生存时间，防止服务端没有收到 超时重传，<br>防止失效的连接请求报文出现在连接中<br>前言<br>16年毕业到现在也近两年了，最近面试了阿里集团（菜鸟网络，蚂蚁金服），网易，滴滴，点我达，最终收到点我达，网易offer，蚂蚁金服二面挂掉，菜鸟网络一个月了还在流程中…<br>最终有幸去了网易。<br>但是要特别感谢点我达的领导及HR，真的非常非常好，很感谢他们一直的关照和指导。<br>面试整体事项</p>
+<ol>
+<li>简历要准备好，联系方式一定要正确清晰醒目，项目经历按照时间倒序阐述，注意描述自己在项目中承担的职责，简历的模板尽量选择简洁的，毕竟程序员大部分还是喜欢简单明了的。</li>
+<li>推荐boss直聘，我觉得很好用（不是广告）。</li>
+<li>一般的整体面试流程都是电面-&gt;现场面-&gt;HR面-&gt;等着。</li>
+<li>不要觉得HR说让你回去等消息就是GG了，他们也要跟你之前的面试官讨论，再向领导汇报，如果说不急可能还要和其他候选人比较，所以HR让你回去等消息绝对不是说明你完蛋了。</li>
+<li>面试前准备好自我介绍，1分钟左右就可以，可以写在纸上，电面可以照着念，等你到了现场面了基本也都快背下来你的自我介绍了。</li>
+<li>准备好扎实的基础，这是一切的根源，没实力怎么都没用的。</li>
+<li>面试中你可以把你的面试官往你会的知识上引导（我遇到过你会什么他不问什么的）。</li>
+<li>遇到了设计类题目不要着急，面试官不是为了让你几分钟设计一个高并发高可用设计模式完美的架构，只是想看看你的思路，看看你应变的能力，然后给你些提示看看你能否迅速的调整。</li>
+<li>offer都会有的，不要着急，把面试当成一个交流的过程。<br>需要准备的知识<br>以下为在近期面试中比较有印象的问题，也就不分公司了，因为没什么意义，大致分类记录一下，目前只想起这么多，不过一定要知道这些问题只是冰山一角，就算都会了也不能怎么样，最最重要的，还是坚实的基础，清醒的头脑。<br>Java基础</li>
+<li>HashMap的源码，实现原理，JDK8中对HashMap做了怎样的优化。</li>
+<li>HaspMap扩容是怎样扩容的，为什么都是2的N次幂的大小。</li>
+<li>HashMap，HashTable，ConcurrentHashMap的区别。</li>
+<li>极高并发下HashTable和ConcurrentHashMap哪个性能更好，为什么，如何实现的。</li>
+<li>HashMap在高并发下如果没有处理线程安全会有怎样的安全隐患，具体表现是什么。</li>
+<li>java中四种修饰符的限制范围。</li>
+<li>Object类中的方法。</li>
+<li>接口和抽象类的区别，注意JDK8的接口可以有实现。</li>
+<li>动态代理的两种方式，以及区别。</li>
+<li>Java序列化的方式。</li>
+<li>传值和传引用的区别，Java是怎么样的，有没有传值引用。</li>
+<li>一个ArrayList在循环过程中删除，会不会出问题，为什么。</li>
+<li>@transactional注解在什么情况下会失效，为什么。<br>数据结构和算法</li>
+<li>B+树</li>
+<li>快速排序，堆排序，插入排序（其实八大排序算法都应该了解</li>
+<li>一致性Hash算法，一致性Hash算法的应用<br>JVM</li>
+<li>JVM的内存结构。</li>
+<li>JVM方法栈的工作过程，方法栈和本地方法栈有什么区别。</li>
+<li>JVM的栈中引用如何和堆中的对象产生关联。</li>
+<li>可以了解一下逃逸分析技术。</li>
+<li>GC的常见算法，CMS以及G1的垃圾回收过程，CMS的各个阶段哪两个是Stop the world的，CMS会不会产生碎片，G1的优势。</li>
+<li>标记清除和标记整理算法的理解以及优缺点。</li>
+<li>eden survivor区的比例，为什么是这个比例，eden survivor的工作过程。</li>
+<li>JVM如何判断一个对象是否该被GC，可以视为root的都有哪几种类型。</li>
+<li>强软弱虚引用的区别以及GC对他们执行怎样的操作。</li>
+<li>Java是否可以GC直接内存。</li>
+<li>Java类加载的过程。</li>
+<li>双亲委派模型的过程以及优势。</li>
+<li>常用的JVM调优参数。</li>
+<li>dump文件的分析。</li>
+<li>Java有没有主动触发GC的方式（没有）。<br>多线程</li>
+<li>Java实现多线程有哪几种方式。</li>
+<li>Callable和Future的了解。</li>
+<li>线程池的参数有哪些，在线程池创建一个线程的过程。</li>
+<li>volitile关键字的作用，原理。</li>
+<li>synchronized关键字的用法，优缺点。</li>
+<li>Lock接口有哪些实现类，使用场景是什么。</li>
+<li>可重入锁的用处及实现原理，写时复制的过程，读写锁，分段锁（ConcurrentHashMap中的segment）。</li>
+<li>悲观锁，乐观锁，优缺点，CAS有什么缺陷，该如何解决。</li>
+<li>ABC三个线程如何保证顺序执行。</li>
+<li>线程的状态都有哪些。</li>
+<li>sleep和wait的区别。</li>
+<li>notify和notifyall的区别。</li>
+<li>ThreadLocal的了解，实现原理。<br>数据库相关</li>
+<li>常见的数据库优化手段</li>
+<li>索引的优缺点，什么字段上建立索引</li>
+<li>数据库连接池。</li>
+<li>durid的常用配置。<br>计算机网络</li>
+<li>TCP，UDP区别。</li>
+<li>三次握手，四次挥手，为什么要四次挥手。</li>
+<li>长连接和短连接。</li>
+<li>连接池适合长连接还是短连接。<br>设计模式</li>
+<li>观察者模式</li>
+<li>代理模式</li>
+<li>单例模式，有五种写法，可以参考文章单例模式的五种实现方式</li>
+<li>可以考Spring中使用了哪些设计模式<br>分布式相关</li>
+<li>分布式事务的控制。</li>
+<li>分布式锁如何设计。</li>
+<li>分布式session如何设计。</li>
+<li>dubbo的组件有哪些，各有什么作用。</li>
+<li>zookeeper的负载均衡算法有哪些。</li>
+<li>dubbo是如何利用接口就可以通信的。<br>缓存相关</li>
+<li>redis和memcached的区别。</li>
+<li>redis支持哪些数据结构。</li>
+<li>redis是单线程的么，所有的工作都是单线程么。</li>
+<li>redis如何存储一个String的。</li>
+<li>redis的部署方式，主从，集群。</li>
+<li>redis的哨兵模式，一个key值如何在redis集群中找到存储在哪里。</li>
+<li>redis持久化策略。<br>框架相关</li>
+<li>SpringMVC的Controller是如何将参数和前端传来的数据一一对应的。</li>
+<li>Mybatis如何找到指定的Mapper的，如何完成查询的。</li>
+<li>Quartz是如何完成定时任务的。</li>
+<li>自定义注解的实现。</li>
+<li>Spring使用了哪些设计模式。</li>
+<li>Spring的IOC有什么优势。</li>
+<li>Spring如何维护它拥有的bean。<br>一些较新的东西</li>
+<li>JDK8的新特性，流的概念及优势，为什么有这种优势。</li>
+<li>区块链了解</li>
+<li>如何设计双11交易总额面板，要做到高并发高可用。<br>一些小建议</li>
+<li>可以去leetcode上刷题换换思路。</li>
+<li>八大排序算法一定要手敲一遍（快排，堆排尤其重要）。</li>
+<li>了解一些新兴的技术。</li>
+<li>面试之后面试官都会问你有没有什么问题，千万不要没问题，也别傻乎乎的问一些敏感问题。<br>总结<br>无论是哪家公司，都很重视高并发高可用的技术，重视基础，重视JVM。面试是一个双向选择的过程，不要抱着畏惧的心态去面试，不利于自己的发挥。同时看中的应该不止薪资，还要看你是不是真的喜欢这家公司，是不是能真的得到锻炼。其实我写了这么多，只是我自己的总结，并不一定适用于所有人，相信经过一些面试，大家都会有这些感触。<br>如果这些文字能够帮到你，那就最好了，帮不到就当是我自己的一个记录。<br>最后，希望大家都能找到适合自己的公司，开开心心的撸代码~<br>aot-class-report 。老ruby项目发展而来，课后报告，老师上完课会评价学生，默认话术，学生评价老师，学生阶段性报告，上传文件<br>学生ai报告（接口数据多,ai指标，薄弱发音，弹幕视频地址，跳转token,灰度发布<br>生成短连接，接收视频录制合成完毕，更新视频地址等信息，首次分析报告到朋友圈发金贝</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Unsorted/">Unsorted</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Unsorted/">Unsorted</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appKey":"NOvQqkfNpn6NpGU7zUG0V5sb","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://arc7mtb3.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[],"appid":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appkey":"NOvQqkfNpn6NpGU7zUG0V5sb"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

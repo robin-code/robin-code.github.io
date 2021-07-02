@@ -1,0 +1,504 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个普通Java工程师的分享">
+  <meta name="author" content="robin.li">
+  <meta name="keywords" content="Java JavaScript Linux Spring-Boot MySQL Blog ljy">
+  
+  <title>rocketmq question - robin技术总结</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"robin-code.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","app_key":"NOvQqkfNpn6NpGU7zUG0V5sb","server_url":"https://arc7mtb3.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>robin's space</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="rocketmq question">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-28 10:02" pubdate>
+        星期一 2021年06月28日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      65
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">rocketmq question</h1>
+            
+            <div class="markdown-body">
+              <h2 id="说说你们公司线上生产环境用的是什么消息中间件-为什么要使用MQ？"><a href="#说说你们公司线上生产环境用的是什么消息中间件-为什么要使用MQ？" class="headerlink" title="说说你们公司线上生产环境用的是什么消息中间件?为什么要使用MQ？"></a>说说你们公司线上生产环境用的是什么消息中间件?为什么要使用MQ？</h2><p>因为项目比较大，做了分布式系统，所有远程服务调用请求都是同步执行经常出问题，所以引入了mq<br>解耦<br>系统耦合度降低，没有强依赖关系<br>异步<br>不需要同步执行的远程调用可以有效提高响应时间<br>削峰<br>请求达到峰值后，后端service还可以保持固定消费速率消费，不会被压垮</p>
+<h2 id="多个mq如何选型？"><a href="#多个mq如何选型？" class="headerlink" title="多个mq如何选型？"></a>多个mq如何选型？</h2><p>RabbitMQ<br>erlang开发，延迟比较低<br>RocketMQ<br>java开发，面向互联网集群化功能丰富<br>kafka<br>Scala开发，面向日志功能丰富<br>ActiveMQ<br>java开发，简单，稳定<br>小项目：ActiveMQ<br>大项目：RocketMQ或kafka、RabbitMq</p>
+<h2 id="RocketMQ由哪些角色组成，每个角色作用和特点是什么？"><a href="#RocketMQ由哪些角色组成，每个角色作用和特点是什么？" class="headerlink" title="RocketMQ由哪些角色组成，每个角色作用和特点是什么？"></a>RocketMQ由哪些角色组成，每个角色作用和特点是什么？</h2><p>nameserver 无状态 动态列表<br>producer<br>broker<br>consumer</p>
+<h2 id="RocketMQ中的Topic和ActiveMQ有什么区别？"><a href="#RocketMQ中的Topic和ActiveMQ有什么区别？" class="headerlink" title="RocketMQ中的Topic和ActiveMQ有什么区别？"></a>RocketMQ中的Topic和ActiveMQ有什么区别？</h2><p>ActiveMQ<br>有destination的概念，即消息目的地<br>destination分为两类：<br>• topic<br>• 广播消息<br>• queue<br>• 队列消息<br>RocketMQ<br>RocketMQ的Topic是一组Message Queue的集合 ConsumeQueue<br>一条消息是广播消息还是队列消息由客户端消费决定</p>
+<h2 id="RocketMQ-Broker中的消息被消费后会立即删除吗？"><a href="#RocketMQ-Broker中的消息被消费后会立即删除吗？" class="headerlink" title="RocketMQ Broker中的消息被消费后会立即删除吗？"></a>RocketMQ Broker中的消息被消费后会立即删除吗？</h2><p>不会，每条消息都会持久化到CommitLog中，每个consumer连接到broker后会维持消费进度信息，当有消息消费后只是当前consumer的消费进度（CommitLog的offset）更新了。</p>
+<h2 id="那么消息会堆积吗？什么时候清理过期消息？"><a href="#那么消息会堆积吗？什么时候清理过期消息？" class="headerlink" title="那么消息会堆积吗？什么时候清理过期消息？"></a>那么消息会堆积吗？什么时候清理过期消息？</h2><p>4.6版本默认48小时后会删除不再使用的CommitLog文件<br>• 检查这个文件最后访问时间<br>• 判断是否大于过期时间<br>• 指定时间删除，默认凌晨4点</p>
+<h2 id="RocketMQ消费模式有几种？"><a href="#RocketMQ消费模式有几种？" class="headerlink" title="RocketMQ消费模式有几种？"></a>RocketMQ消费模式有几种？</h2><p>消费模型由consumer决定，消费维度为Topic<br>集群消费<br>一组consumer同时消费一个topic，可以分配消费负载均衡策略分配consumer对应消费topic下的哪些queue<br>多个group同时消费一个topic时，每个group都会消费到数据<br>一条消息只会被一个group中的consumer消费，<br>广播消费<br>消息将对一 个Consumer Group 下的各个 Consumer 实例都消费一遍。即即使这些 Consumer 属于同一个Consumer Group ，消息也会被 Consumer Group 中的每个 Consumer 都消费一次。</p>
+<h2 id="消费消息时使用的是push还是pull？"><a href="#消费消息时使用的是push还是pull？" class="headerlink" title="消费消息时使用的是push还是pull？"></a>消费消息时使用的是push还是pull？</h2><p>在刚开始的时候就要决定使用哪种方式消费<br>两种：<br>DefaultLitePullConsumerImpl  拉<br>DefaultMQPushConsumerImpl推<br>两个实现 DefaultLitePullConsumerImpl DefaultMQPushConsumerImpl都实现了MQConsumerInner接口接口<br>名称上看起来是一个推，一个拉，但实际底层实现都是采用的长轮询机制，即拉取方式<br>broker端属性 longPollingEnable 标记是否开启长轮询。默认开启<br>为什么要主动拉取消息而不使用事件监听方式？<br>事件驱动方式是建立好长连接，由事件（发送数据）的方式来实时推送。<br>如果broker主动推送消息的话有可能push速度快，消费速度慢的情况，那么就会造成消息在consumer端堆积过多，同时又不能被其他consumer消费的情况<br>说一说几种常见的消息同步机制？<br>push：<br>如果broker主动推送消息的话有可能push速度快，消费速度慢的情况，那么就会造成消息在consumer端堆积过多，同时又不能被其他consumer消费的情况<br>pull：<br>轮训时间间隔，固定值的话会造成资源浪费<br>长轮询：<br>上连接 短连接（每秒） 长轮询</p>
+<h2 id="broker如何处理拉取请求的？"><a href="#broker如何处理拉取请求的？" class="headerlink" title="broker如何处理拉取请求的？"></a>broker如何处理拉取请求的？</h2><p>consumer首次请求broker<br>• broker中是否有符合条件的消息<br>• 有 -&gt;<br>• 响应consumer<br>• 等待下次consumer的请求<br>• 没有<br>• 挂起consumer的请求，即不断开连接，也不返回数据<br>• 挂起时间长短，写死在代码里的吗？长轮询写死，短轮询可以配<br>• 使用consumer的offset，<br>• DefaultMessageStore#ReputMessageService#run方法<br>• 每隔1ms检查commitLog中是否有新消息，有的话写入到pullRequestTable<br>• 当有新消息的时候返回请求<br>• PullRequestHoldService 来Hold连接，每个5s执行一次检查pullRequestTable有没有消息，有的话立即推送</p>
+<h2 id="ocketMQ如何做负载均衡？"><a href="#ocketMQ如何做负载均衡？" class="headerlink" title="ocketMQ如何做负载均衡？"></a>ocketMQ如何做负载均衡？</h2><p>通过Topic在多broker种分布式存储实现<br>producer端<br>发送端指定Target message queue发送消息到相应的broker，来达到写入时的负载均衡<br>• 提升写入吞吐量，当多个producer同时向一个broker写入数据的时候，性能会下降<br>• 消息分布在多broker种，为负载消费做准备<br>每 30 秒从 nameserver获取 Topic 跟 Broker 的映射关系，近实时获取最新数据存储单元，queue落地在哪个broker中<br>在使用api中send方法的时候，可以指定Target message queue写入或者使用MessageQueueSelector<br>默认策略是随机选择：<br>• producer维护一个index<br>• 每次取节点会自增<br>• index向所有broker个数取余<br>• 自带容错策略<br>其他实现<br>• SelectMessageQueueByHash<br>• hash的是传入的args<br>• SelectMessageQueueByRandom<br>• SelectMessageQueueByMachineRoom 没有实现<br>也可以自定义实现MessageQueueSelector接口中的select方法<br>MessageQueue select(final List<MessageQueue> mqs, final Message msg, final Object arg);<br>可以自定义规则来选择mqs</p>
+<h2 id="如何知道mqs的，mqs的数据从哪儿来？"><a href="#如何知道mqs的，mqs的数据从哪儿来？" class="headerlink" title="如何知道mqs的，mqs的数据从哪儿来？"></a>如何知道mqs的，mqs的数据从哪儿来？</h2><p>producer.start()方法<br>参考源码<br>• 启动producer的时候会向nameserver发送心跳包<br>• 获取nameserver中的topic列表<br>• 使用topic向nameserver获取topicRouteData<br>TopicRouteData对象表示与某一个topic有关系的broker节点信息，内部包含多个QueueData对象（可以有多个broker集群支持该topic）和多个BrokerData信息（多个集群的多个节点信息都在该列表中）<br>producer加工TopicRouteData，对应的多节点信息后返回mqs。<br>consumer端<br>客户端完成负载均衡<br>• 获取集群其他节点<br>• 当前节点消费哪些queue<br>• 负载粒度直到Message Queue<br>• consumer的数量最好和Message Queue的数量对等或者是倍数，不然可能会有消费倾斜<br>• 每个consumer通过balanced维护processQueueTable<br>• processQueueTable为当前consumer的消费queue<br>• processQueueTable中有<br>• ProcessQueue ：维护消费进度，从broker中拉取回来的消息缓冲<br>• MessageQueue ： 用来定位查找queue<br>DefaultMQPushConsumer默认 使用AllocateMessageQueueAveragely（平均分配）</p>
+<h2 id="当消费负载均衡consumer和queue不对等的时候会发生什么？"><a href="#当消费负载均衡consumer和queue不对等的时候会发生什么？" class="headerlink" title="当消费负载均衡consumer和queue不对等的时候会发生什么？"></a>当消费负载均衡consumer和queue不对等的时候会发生什么？</h2><p>平均分配<br>环形分配<br>负载均衡算法<br>平均分配策略(默认)(AllocateMessageQueueAveragely)<br>环形分配策略(AllocateMessageQueueAveragelyByCircle)<br>手动配置分配策略(AllocateMessageQueueByConfig)<br>机房分配策略(AllocateMessageQueueByMachineRoom)<br>一致性哈希分配策略(AllocateMessageQueueConsistentHash)<br>靠近机房策略(AllocateMachineRoomNearby)<br>consumer启动流程参考源码</p>
+<h2 id="消息丢失"><a href="#消息丢失" class="headerlink" title="消息丢失"></a>消息丢失</h2><p>SendResult<br>producer在发送同步/异步可靠消息后，会接收到SendResult，表示消息发送成功<br>SendResult其中属性sendStatus表示了broker是否真正完成了消息存储<br>当sendStatus!=”ok”的时候，应该重新发送消息，避免丢失<br>当producer.setRetryAnotherBrokerWhenNotStoreOK<br>消息重复消费<br>影响消息正常发送和消费的重要原因是网络的不确定性。<br>可能是因为consumer首次启动引起重复消费<br>需要设置consumer.setConsumeFromWhere<br>只对一个新的consumeGroup第一次启动时有效,设置从头消费还是从维护开始消费<br>你们怎么保证投递出去的消息只有一条且仅仅一条，不会出现重复的数据?<br>绑定业务key<br>如果消费了重复的消息怎么保证数据的准确性?<br>引起重复消费的原因<br>ACK<br>正常情况下在consumer真正消费完消息后应该发送ack，通知broker该消息已正常消费，从queue中剔除<br>当ack因为网络原因无法发送到broker，broker会认为词条消息没有被消费，此后会开启消息重投机制把消息再次投递到consumer<br>group<br>在CLUSTERING模式下，消息在broker中会保证相同group的consumer消费一次，但是针对不同group的consumer会推送多次<br>解决方案<br>数据库表<br>处理消息前，使用消息主键在表中带有约束的字段中insert<br>Map<br>单机时可以使用map ConcurrentHashMap -&gt; putIfAbsent   guava cache<br>Redis<br>使用主键或set操作</p>
+<h2 id="如何让RocketMQ保证消息的顺序消费"><a href="#如何让RocketMQ保证消息的顺序消费" class="headerlink" title="如何让RocketMQ保证消息的顺序消费"></a>如何让RocketMQ保证消息的顺序消费</h2><p>你们线上业务用消息中间件的时候，是否需要保证消息的顺序性?<br>如果不需要保证消息顺序，为什么不需要?假如我有一个场景要保证消息的顺序，你们应该如何保证?<br>• 同一topic<br>• 同一个QUEUE<br>• 发消息的时候一个线程去发送消息<br>• 消费的时候 一个线程 消费一个queue里的消息或者使用MessageListenerOrderly<br>• 多个queue 只能保证单个queue里的顺序<br>应用场景是啥？<br>应用系统和现实的生产业务绑定，避免在分布式系统中多端消费业务消息造成顺序混乱<br>比如需要严格按照顺序处理的数据或业务<br>数据包装/清洗<br>数据：<br>import java.nio.ByteBuffer;<br>import java.nio.charset.Charset;<br>import java.util.HashMap;<br>import java.util.Iterator;<br>import java.util.Map;</p>
+<ol>
+<li>去掉import</li>
+<li>统计某个字符出现次数<br>业务流程处理<br>返修过程</li>
+<li>收件录入信息</li>
+<li>信息核对</li>
+<li>送入检修系统处理<br>电商订单</li>
+<li>创建订单</li>
+<li>检查库存预扣库存</li>
+<li>支付</li>
+<li>真扣库存<br>binlog同步<br>RocketMQ如何保证消息不丢失</li>
+<li>生产端如何保证投递出去的消息不丢失：消息在半路丢失，或者在MQ内存中宕机导致丢失，此时你如何基于MQ的功能保证消息不要丢失？</li>
+<li>MQ自身如何保证消息不丢失？</li>
+<li>消费端如何保证消费到的消息不丢失：如果你处理到一半消费端宕机，导致消息丢失，此时怎么办？<br>解耦的思路<br>发送方<br>发送消息时做消息备份（记日志或同步到数据库），判断sendResult是否正常返回<br>broker<br>节点保证<br>• master接受到消息后同步刷盘，保证了数据持久化到了本机磁盘中<br>• 同步写入slave<br>• 写入完成后返回SendResult<br>consumer<br>• 记日志<br>• 同步执行业务逻辑，最后返回ack<br>• 异常控制<br>磁盘保证<br>使用Raid磁盘阵列保证数据磁盘安全<br>网络数据篡改<br>内置TLS可以开启，默认使用crc32校验数据<br>消息刷盘机制底层实现<br>每间隔10ms，执行一次数据持久化操作<br>两种， 同步刷、异步刷<br>public void run() {<br>CommitLog.log.info(this.getServiceName() + “ service started”);<br>while (!this.isStopped()) {<br>try {<br>this.waitForRunning(10);<br>this.doCommit();<br>} catch (Exception e) {<br>CommitLog.log.warn(this.getServiceName() + “ service has exception. “, e);<br>}<br>}<br>rocketMq的消息堆积如何处理<br>下游消费系统如果宕机了，导致几百万条消息在消息中间件里积压，此时怎么处理?<br>你们线上是否遇到过消息积压的生产故障?如果没遇到过，你考虑一下如何应对?<br>具体表现为 ui中转圈圈<br>对于大规模消息发送接收可以使用pull模式，手动处理消息拉取速度,消费的时候统计消费时间以供参考<br>保证消息消费速度固定，即可通过上线更多consumer临时解决消息堆积问题<br>如果consumer和queue不对等，上线了多台也在短时间内无法消费完堆积的消息怎么办？<br>• 准备一个临时的topic<br>• queue的数量是堆积的几倍<br>• queue分不到多broker种<br>• 上线一台consumer做消息的搬运工，把原来topic中的消息挪到新的topic里，不做业务逻辑处理，只是挪过去<br>• 上线N台consumer同时消费临时topic中的数据<br>• 改bug<br>• 恢复原来的consumer，继续消费之前的topic<h2 id="堆积时间过长消息超时了？"><a href="#堆积时间过长消息超时了？" class="headerlink" title="堆积时间过长消息超时了？"></a>堆积时间过长消息超时了？</h2>RocketMQ中的消息只会在commitLog被删除的时候才会消失，不会超时<h2 id="堆积的消息会不会进死信队列？"><a href="#堆积的消息会不会进死信队列？" class="headerlink" title="堆积的消息会不会进死信队列？"></a>堆积的消息会不会进死信队列？</h2>不会，消息在消费失败后会进入重试队列（%RETRY%+consumergroup），多次（默认16）才会进入死信队列（%DLQ%+consumergroup）<br>你们用的是RocketMQ?那你说说RocketMQ的底层架构原理，磁盘上数据如何存储的，整体分布式架构是如何实现的?<h2 id="零拷贝等技术是如何运用的"><a href="#零拷贝等技术是如何运用的" class="headerlink" title="零拷贝等技术是如何运用的?"></a>零拷贝等技术是如何运用的?</h2>使用nio的MappedByteBuffer调起数据输出<br>你们用的是RocketMQ?RocketMQ很大的一个特点是对分布式事务的支持，你## 说说他在分布式事务支持这块机制的底层原理?<br>分布式系统中的事务可以使用TCC（Try、Confirm、Cancel）、2pc来解决分布式系统中的消息原子性<br>RocketMQ 4.3+提供分布事务功能，通过 RocketMQ 事务消息能达到分布式事务的最终一致<br>RocketMQ实现方式<br>Half Message：预处理消息，当broker收到此类消息后，会存储到RMQ_SYS_TRANS_HALF_TOPIC的消息消费队列中<br>检查事务状态：Broker会开启一个定时任务，消费RMQ_SYS_TRANS_HALF_TOPIC队列中的消息，每次执行任务会向消息发送者确认事务执行状态（提交、回滚、未知），如果是未知，等待下一次回调。<br>超时：如果超过回查次数，默认回滚消息<br>TransactionListener的两个方法<br>executeLocalTransaction<br>半消息发送成功触发此方法来执行本地事务<br>checkLocalTransaction<br>broker将发送检查消息来检查事务状态，并将调用此方法来获取本地事务状态<br>本地事务执行状态<br>LocalTransactionState.COMMIT_MESSAGE<br>执行事务成功，确认提交<br>LocalTransactionState.ROLLBACK_MESSAGE<br>回滚消息，broker端会删除半消息<br>LocalTransactionState.UNKNOW<br>暂时为未知状态，等待broker回查<h2 id="如果让你来动手实现一个分布式消息中间件，整体架构你会如何设计实现"><a href="#如果让你来动手实现一个分布式消息中间件，整体架构你会如何设计实现" class="headerlink" title="如果让你来动手实现一个分布式消息中间件，整体架构你会如何设计实现?"></a>如果让你来动手实现一个分布式消息中间件，整体架构你会如何设计实现?</h2>看过RocketMQ 的源码没有。如果看过，说说你对RocketMQ 源码的理解?</li>
+</ol>
+<h2 id="高吞吐量下如何优化生产者和消费者的性能"><a href="#高吞吐量下如何优化生产者和消费者的性能" class="headerlink" title="高吞吐量下如何优化生产者和消费者的性能?"></a>高吞吐量下如何优化生产者和消费者的性能?</h2><p>   消费<br>   • 同一group下，多机部署，并行消费<br>   • 单个consumer提高消费线程个数<br>   • 批量消费<br>   • 消息批量拉取<br>   • 业务逻辑批量处理<br>   运维<br>   • 网卡调优<br>   • jvm调优<br>   • 多线程与cpu调优<br>   • Page Cache<br>   再说说RocketMQ 是如何保证数据的高容错性的?<br>   • 在不开启容错的情况下，轮询队列进行发送，如果失败了，重试的时候过滤失败的Broker<br>   • 如果开启了容错策略，会通过RocketMQ的预测机制来预测一个Broker是否可用<br>   • 如果上次失败的Broker可用那么还是会选择该Broker的队列<br>   • 如果上述情况失败，则随机选择一个进行发送<br>   • 在发送消息的时候会记录一下调用的时间与是否报错，根据该时间去预测broker的可用时间</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appKey":"NOvQqkfNpn6NpGU7zUG0V5sb","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://arc7mtb3.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[],"appid":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appkey":"NOvQqkfNpn6NpGU7zUG0V5sb"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

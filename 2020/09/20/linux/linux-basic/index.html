@@ -1,0 +1,552 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个普通Java工程师的分享">
+  <meta name="author" content="robin.li">
+  <meta name="keywords" content="Java JavaScript Linux Spring-Boot MySQL Blog ljy">
+  
+  <title>linux基础知识 - robin技术总结</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"robin-code.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","app_key":"NOvQqkfNpn6NpGU7zUG0V5sb","server_url":"https://arc7mtb3.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>robin's space</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="linux基础知识">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-20 14:20" pubdate>
+        星期日 2020年09月20日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      60
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">linux基础知识</h1>
+            
+            <div class="markdown-body">
+              <p><a target="_blank" rel="noopener" href="https://commons.wikimedia.org/wiki/File:Linux_Distribution_Timeline.svg">linux distribution timeline</a></p>
+<h2 id="现在流行的发行版"><a href="#现在流行的发行版" class="headerlink" title="现在流行的发行版"></a>现在流行的发行版</h2><ul>
+<li>Debian<ul>
+<li>ubuntu <ul>
+<li>mint</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>RedHat<ul>
+<li>RedHat Enterprise Linux: RHEL<ul>
+<li>CentOS: Community Enterprise OS</li>
+</ul>
+</li>
+<li>Fedora    </li>
+</ul>
+</li>
+<li>Slackware<ul>
+<li>S.u.S.E<ul>
+<li>SLES</li>
+<li>OpenSUSE</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Gentoo</li>
+<li>ArchLinux        </li>
+</ul>
+<h2 id="图形化或者终端模式启动"><a href="#图形化或者终端模式启动" class="headerlink" title="图形化或者终端模式启动"></a>图形化或者终端模式启动</h2><h3 id="终端无界面模式"><a href="#终端无界面模式" class="headerlink" title="终端无界面模式"></a>终端无界面模式</h3><ul>
+<li>sudo systemctl set-default multi-user.target </li>
+</ul>
+<h3 id="图形界面"><a href="#图形界面" class="headerlink" title="图形界面"></a>图形界面</h3><ul>
+<li>startx</li>
+<li>sudo systemctl set-default graphical.target</li>
+</ul>
+<h2 id="ps-命令"><a href="#ps-命令" class="headerlink" title="ps 命令"></a>ps 命令</h2><p>ps -aux |grep ac-fc-srv<br>kill -9 21743</p>
+<h2 id="ln"><a href="#ln" class="headerlink" title="ln"></a>ln</h2><p><code> ln -s a b</code><br>a 就是源文件，b是链接文件名,其作用是当进入b目录，<br>实际上是链接进入了a目录</p>
+<p><code>rm -rf  b  注意不是rm -rf  b/</code></p>
+<h2 id="linux-磁盘空间"><a href="#linux-磁盘空间" class="headerlink" title="linux 磁盘空间"></a>linux 磁盘空间</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livecodeserver">列出当前文件夹目录文件大小<br><br>du : disk usage?<br><br>`du -sh * `<br><br>- du – that’s <span class="hljs-keyword">the</span> <span class="hljs-keyword">command</span><br>- s – this <span class="hljs-keyword">switch</span> tells ‘du’ <span class="hljs-built_in">to</span> show you <span class="hljs-literal">one</span> <span class="hljs-built_in">line</span> per filename specified<br>- h – this <span class="hljs-keyword">switch</span> tells ‘du’ <span class="hljs-built_in">to</span> output <span class="hljs-keyword">the</span> sizes <span class="hljs-keyword">in</span> ‘human-readable’ <span class="hljs-built_in">format</span>. Because we’re <span class="hljs-keyword">using</span> <span class="hljs-literal">two</span> switches, s <span class="hljs-keyword">and</span> h, we can <span class="hljs-built_in">combine</span> them together <span class="hljs-keyword">with</span> ‘-sh‘<br>- * – this is <span class="hljs-keyword">the</span> filename target, <span class="hljs-keyword">and</span> <span class="hljs-keyword">the</span> asterisk means “everything that doesn’t <span class="hljs-built_in">start</span> <span class="hljs-keyword">with</span> <span class="hljs-keyword">a</span> period.” You could specify <span class="hljs-keyword">a</span> single <span class="hljs-built_in">directory</span> here <span class="hljs-keyword">or</span> <span class="hljs-keyword">a</span> list, <span class="hljs-keyword">or</span> individual <span class="hljs-built_in">files</span>. du will take them all.<br><br></code></pre></div></td></tr></table></figure>
+
+<h2 id="sudo"><a href="#sudo" class="headerlink" title="sudo"></a>sudo</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">sudo:某个用户能够以另外哪一个用户的身份通过哪些主机执行什么命令<br>   sudo COMMAND <br><br>sudo的配置文件:<br>   <span class="hljs-regexp">/etc/</span>sudoers<br>   可以使用visudo 打开编辑<br><br>在<span class="hljs-regexp">/etc/</span>sudoers里:<br>一个sudo条目:<br>who     which_host=(runas) [TAG:] command<br>                              |<br>                              |-------&gt; 例如：如果加了标签NOPASSWD:执行后面的命令就不用再输入密码了<br>who : 可以使用User_Alias<br>which_host : 可以使用Host_Alias<br>runas: 可以使用Runas_Alias<br>command: 可以使用Cmnd_Alias<br><br>注意:别名必须全部而且只能使用英文大写<br><br>User_Alias:<br>   用户的用户名<br>   组名,使用%引导<br>   还可以包含其他已经存在的用户名<br><br>Host_Alias:<br>   主机名<br>   IP<br>   网络地址<br>   其他主机别名<br><br>Runas_Alias:<br>   用户名<br>   %组名<br>   其他的Runas别名<br><br>Cmnd_Alias:<br>   命令路径<br>   目录（表示此目录内的所有命令）<br>   其他事先定义的命令别名<br><br>sudo 命令<br>   -l : 列出当前用户可以使用的所有sudo类命令<br>   -k : 让认证信息失效<br><br>使用sudo操作的日志都记录在<span class="hljs-regexp">/var/</span>log/secure 文件中<br><br><br>马哥Linux学习第二十八天（sudo，nsswitch&amp;pam，定制内核）<br><br>回顾：awk<br>	文本格式化工具：print, printf<br><br>	awk [OPTIONS] <span class="hljs-string">&#x27;program&#x27;</span> FILE...<br>		awk -f <span class="hljs-regexp">/PATH/</span>FROM/AWK_SCRIPT [OPTIONS] FILE ...<br><br>		program：<span class="hljs-string">&#x27;PATTERN&#123;ACTION&#125;&#x27;</span><br>			PATTERN：empty、 <span class="hljs-regexp">/REGEXP/</span>、relational expression、<span class="hljs-keyword">BEGIN</span>/<span class="hljs-keyword">END</span>、line ranges<br><br>			awk -F: <span class="hljs-string">&#x27;&#123;if($3%2==0) nets; print $1,$3&#125;&#x27;</span> <span class="hljs-regexp">/etc/</span>passwd<br><br>			netstat -tan | awk <span class="hljs-string">&#x27;/^tcp/&#123;state[$NF]++&#125;END&#123;for(i in state) &#123;print i,state[i]&#125;&#125;&#x27;</span><br><br>		博客作业：awk的应用<br><br>余下内容：sudo，pam，busybox，nsswitch<br><br>sudo：<br>	su：switch user<br>		su -l USERNAME<br><br>	centos：切勿以root登录系统；如果期望执行管理操作，可以su至管理员；<br><br>	sudo：<br>		<span class="hljs-number">1</span>、授权指定用户在指定主机上运行指定的管理命令；<br>		<span class="hljs-number">2</span>、详细记录用户基于sudo之行命令的相关日志信息；<br>		<span class="hljs-number">3</span>、“检票系统”：时效性认证：用户第一次执行sudo时会要求输入密码来验证用户身份，成功后用户会获得一个有固定存活时长的“令牌”；<span class="hljs-number">5</span>分钟；<br><br>	如何实现sudo功能？<br>		授权文件：<span class="hljs-regexp">/etc/</span>sudoers<br>			注意：仅管理员拥有编辑权限；而且不建议使用编辑器编辑，有专用的编辑工具visudo；<br><br>			帮助文档：<br>				man visudo<br>				man visudoers<br><br>	<span class="hljs-regexp">/etc/</span>sudoers：<br>		包含的内容：别名定义、授权<br><br>		授权：<br>			WHO		HOST=(WHOM)		COMMAND<br><br>			例如：<br>				centos 		ALL=(root)	<span class="hljs-regexp">/usr/</span>sbin/useradd<br><br>			标签：PASSWD，NOPASSWD<br>				WHO HOST=(WHOM) NOPASSWD: CMND1, CMND2 ...<br><br>				PASSWD：标签后的所有命令在使用时都需要“检票”<br>				NOPASSWD：表示标签后的所有命令在使用时都无需“检票”<br><br>				例：<br>					centos 	ALL=(root) 		NOPASSWD: <span class="hljs-regexp">/usr/</span>sbin<span class="hljs-regexp">/useradd, PASSWD: /</span>bin/chown<br><br>		别名：<br>			别名名称：必须使用全大写字符；<br>				WHO：User_Alias<br>				HOST：Host_Alias<br>				WHOM：Runal_Alias<br>				COMMAND：Cmnd_Alias<br><br>			User_Alias：<br>				User_Alias NAME = item1, item2, ...<br>					item：<br>						用户名：如centos<br>						%组名：如netadmins，是为系统组；<br>						<span class="hljs-comment">#UID：如#500</span><br>						<span class="hljs-variable">$#GID</span>：如<span class="hljs-variable">$#501</span><br>						User_Alias：如NETADMINS<br>					例：<br>						User_Alias  NETADMINS = centos, %netadmins, <span class="hljs-comment">#501</span><br>						NETADMINS       ALL=(root)      <span class="hljs-regexp">/sbin/i</span>fconfig<br><br>					注意：用户别名必须为全大写字母组成；<br><br>			Hos_Alias：<br>				Hos_Alias NAME = item1, item2, ...<br>					ALL：所有主机<br>					item：<br>						hostname<br>						ip<br>						network<br>						Host_Alias<br><br>					例：<br>						Host_Alias  MYNET = <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>,<span class="hljs-number">172.16</span>.<span class="hljs-number">0.0</span>/<span class="hljs-number">16</span><br>						NETADMINS       MYNET=(root)    <span class="hljs-regexp">/sbin/i</span>fconfig<br><br>			Runal_Alias：<br>				Runal_Alias NAME = item1, item2, ...<br>					ALL：所有用户<br><br>			Cmnd_Alias：<br>				Cmnd_Alias NAME = item1, item2, ...<br>					item:<br>						命令文件路径<br>						目录（意味授权此目录下的所有命令）<br>						<span class="hljs-string">&quot;sudoedit&quot;</span>（编辑sudoers文件）<br>						Cmnd_Alias<br><br>					例：<br>						Cmnd_Alias NETADMINCMNDS = <span class="hljs-regexp">/sbin/i</span>p, <span class="hljs-regexp">/use/</span>sbin<span class="hljs-regexp">/ss, /</span>sbin/ifconfig<br>						NETADMINS       MYNET=(root)    NETADMINCMNDS<br><br>					注意：开放给用户passwd权限时不要开放其可以更改root用户的密码，可以采用如下授权方式<br>						 <span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/passwd [A-Za-z]*, !/u</span>sr<span class="hljs-regexp">/bin/</span>passwd root<br><br>			sudo su -<br><br>	sudo命令：<br>		被授权用户应该以sudo命令来运行被授权运行的命令；<br>			sudo [OPTIONS] COMMAND<br><br>				-l：查看当前用户可以执行的sudo命令；<br>				-k：清除此前记忆的“令牌”；<br>				-u USERNAME COMMAND：以指定用户运行COMMAND命令，<br>					<span class="hljs-comment"># sudo -u gentoo /sbin/ip addr list</span><br>						可以在<span class="hljs-regexp">/var/</span>log/secure日志文件中产看相关记录<br><br>	练习：<br>		要求要验证授权成功：<br>			<span class="hljs-number">1</span>、授权centos用户可以运行fdisk命令完成磁盘管理，以及使用mkfs或mke2fs实现文件系统管理；<br>				<span class="hljs-comment"># visudo</span><br>				centos  	ALL(root) 	<span class="hljs-regexp">/sbin/</span>fdisk, <span class="hljs-regexp">/sbin/m</span>kfs, <span class="hljs-regexp">/sbin/m</span>ke2fs<br><br>			<span class="hljs-number">2</span>、授权gentoo用户可以运行逻辑卷管理的相关命令。<br>				<span class="hljs-comment"># visudo</span><br>				Cmnd_Alias LVMMGT = <span class="hljs-regexp">/sbin/</span>pvcreate, <span class="hljs-regexp">/sbin/</span>pvdisplay. <span class="hljs-regexp">/sbin/</span>pvs, <span class="hljs-regexp">/sbin/</span>pvremove, <span class="hljs-regexp">/sbin/</span>pvmove, <span class="hljs-regexp">/sbin/</span>vgcreate, <span class="hljs-regexp">/sbin/</span>vgdisplay, <span class="hljs-regexp">/sbin/</span>vgs, <span class="hljs-regexp">/sbin/</span>vgremove, <span class="hljs-regexp">/sbin/</span>vgextend, <span class="hljs-regexp">/sbin/</span>vgreduce, <span class="hljs-regexp">/sbin/</span>lvcreate, <span class="hljs-regexp">/sbin/</span>lvdisplay, <span class="hljs-regexp">/sbin/</span>lvs, <span class="hljs-regexp">/sbin/</span>lvresize, <span class="hljs-regexp">/sbin/</span>lvextend, <span class="hljs-regexp">/sbin/</span>lvreduce, <span class="hljs-regexp">/sbin/</span>lvremove<br><br>				gentoo 	ALL=(root) 	LVMMGT<br><br>nsswitch &amp;&amp; pam<br><br>	nsswitch：network service switch<br>	名称解析：<br>		root, <span class="hljs-number">0</span><br>		www.magedu.com, <span class="hljs-number">172.16</span>.<span class="hljs-number">100.6</span><br>		http, <span class="hljs-number">80</span>/tcp<br>		<br>		login, httpd：共享库<br><br>		解析：查找数据库，以已经的内容为键，找到与之对应的另一种名称；<br>			数据库：<br>				接口不同：文本文件，关系型数据库，ldap<br>				数据集不同：<span class="hljs-regexp">/etc/</span>hosts, <span class="hljs-regexp">/etc/</span>passwd<br><br>			用户名：文本文件，nis数据库，ldap数据库，MySQL数据库<br>			<br>		考量点：<br>			<span class="hljs-number">1</span>、有多种接口可选择，每种接口都需要专用驱动；<br>				解决方案：提供多种驱动<br>			<span class="hljs-number">2</span>、即便为同一接口，而不同应用程序也可能会用到不同的数据集；<br>				解决方案：在配置文件中定义不同应用程序的数据集<br><br>		相关的库文件：<br>			<span class="hljs-comment"># ls -l /lib64/libnss* /usr/lib64/libnss*</span><br><br>			libnss3.so, 及对应数据库接口的驱动；<br><br>		nsswitch：<br>			DATABASE：aliases, ethers, group, hosts, netgroup networks, passwd, protocols, rpm, services, shadow<br>				上述DATABASE即为那些会用到解析库的应用；<br><br>			解析库类型： files, dns, compat, dbm, hesiod, winbind, wins, nis, nisplus<br><br>			nsswitch.conf<br>				DATABASE：解析库类型<br>					group：files<br>					passwd：ldap [NOTFOUND=return] files<br>					hosts：files dns<br><br>				在解析库查询的返回值：<br>					SUCCESS：service ok, found name<br>					NOTFOUND：service ok, name not found<br>					UNAVAL：service not avaliable<br>					TRYAGAIN：temporay service failure<br><br>					默认动作：在第一次遇到SUCCESS状态后，即return，否则，则contion<br><br>						passwd：nis [NOTFOUND=return] files<br><br>			libnss3.so  ---&gt; libnss_files.so --&gt; <span class="hljs-regexp">/etc/</span>passwd<br><br>			数据库条目获取命令：<br>				getent DATABASE [key]<br>					例：getent passwd root<br>					root:x:<span class="hljs-number">0</span>:<span class="hljs-number">0</span>:root:<span class="hljs-regexp">/root:/</span>bin/bash<br><br>	pam：Pluggable Authentication Module<br><br>		众多应用程序都需要用到认证机制时，认证功能可以由共享库来实现<br><br>			模块文件：<span class="hljs-regexp">/lib64/</span>security<br><br>		考量点：<br>			<span class="hljs-number">1</span>、密码存储在何处，pam就要能够于对应存储接口进行通信，如ldap、shadow等；<br>				<br>			<span class="hljs-number">2</span>、额外资源获取权限指派的模块，如pam_limits等；<br>				<br>			<span class="hljs-number">3</span>、通过配置文件为每种应用定义其需要用到的模块，包括驱动、授权机制等等；<br><br>		配置文件：<br>			<span class="hljs-regexp">/etc/</span>pam.conf：主配置文件<br>				Service type control module-path module-arguments<br><br>			<span class="hljs-regexp">/etc/</span>pam.d/*：拆分成每个应用专用的配置文件<br>				type control module-path module-arguments<br><br>				type：（功能），包括：auth， account, password, session<br>					account；与账号管理相关的非认证功能<br>					auth：认证和授权；<br>					password：只有在用户修改密码时使用；<br>					session：用户获取到服务之前或使用服务完成之后要进行一些附属性操作；<br><br>				control：同一种功能的多个检查之间如何进行组合；<br>					有两种实现机制：<br>						<span class="hljs-number">1</span>、使用一个关键词来定义；<br>						<span class="hljs-number">2</span>、使用一到多组“return value=action”<br><br>						简单机制：<br>							required：成功或失败后都会继续检查；<br>							requisite：一票否决；<br>							sufficient：一票通过；<br>							optional：年三十的饺子－－－可有可无，不影响最终结果，参考意见，默认为ignore；<br><br>							include：使用其它的配置文件中同样功能的相关定义来进行检查；<br><br>						复杂机制：<br>							[value1=acton1 value2=acton2]<br><br>							value：指此项检查的返回值，其可能的取值有多种，如success等；<br>							action：采取的操作，其可能的取值常用的有<span class="hljs-number">6</span>种，如ok,done,die,ignore,bad,reset;<br><br>						module-path：模块路径<br>							相对路径：<span class="hljs-regexp">/lib64/</span>security<br>							绝对路径<br><br>						module-arguments：模块参数<br><br>					模块：<br>						pam_unix.so<br>							nullok：允许使用空密码<br>							try_first_pass：提示用户输入密码之前，首先检查此前栈中已经得到的密码；<br><br>						pam_env.so：通过配置文件来为用户设定或撤销环境变量；<br>							<span class="hljs-regexp">/etc/</span>security/pam_env.conf<br><br>						pam_shells.so；检查用户使用的是否为合法shell<br>							<span class="hljs-regexp">/etc/</span>shells<br><br>						pam_limits.so：资源限制<br>							<span class="hljs-regexp">/etc/</span>security/limits.conf<br>							<span class="hljs-regexp">/etc/</span>security<span class="hljs-regexp">/limits.d/</span>*<br><br>							语法格式：<br>								&lt;domain&gt; &lt;type&gt; &lt;item&gt; &lt;value&gt;<br><br>								&lt;domain&gt;：资源限制应用于的对象<br>									用户<br>									@组名<br>									*<br><br>								&lt;type&gt;：<br>									hard：不可超出的类型<br>									soft：可以超出的类型<br>									-：hard和soft都生效<br><br>								&lt;item&gt;：限制的资源<br>									nofile：所能够打开的最大文件数量；<br>									nproc：所能够同时允许的最大进程数量；<br><br>		练习：<br>			<span class="hljs-number">1</span>、基于pam_time.so模块，限制用户通过sshd服务远程登录只能在工作时间进行；<br>				~]<span class="hljs-comment"># vim /etc/pam.d/sshd </span><br>				<span class="hljs-comment">#%PAM-1.0</span><br>				auth       required     pam_sepermit.so<br>				auth       include      password-auth<br>				account    required     pam_nologin.so<br>				account    required     pam_time.so<br>				account    include      password-auth<br>				password   include      password-auth<br>				<span class="hljs-comment"># pam_selinux.so close should be the first session rule</span><br>				session    required     pam_selinux.so close<br>				session    required     pam_loginuid.so<br>				<span class="hljs-comment"># pam_selinux.so open should only be followed by sessions to be executed in the user context</span><br>				session    required     pam_selinux.so open env_params<br>				session    required     pam_namespace.so<br>				session    optional     pam_keyinit.so force revoke<br>				session    include      password-auth<br><br>				~]<span class="hljs-comment"># /etc/security/time.conf</span><br>				sshd;*;root;Wk0900-<span class="hljs-number">1800</span><br><br>			<span class="hljs-number">2</span>、基于pam_listfile.so模块，定义仅某些用户，或某些组内的用户可登录系统。<br>				]<span class="hljs-comment"># vim sshd </span><br>				<span class="hljs-comment">#%PAM-1.0</span><br>				auth       required     pam_sepermit.so<br>				auth       include      password-auth<br>				account    required     pam_nologin.so<br>				account    required     pam_listfile.so item=user sense=allow  file=<span class="hljs-regexp">/etc/u</span>ser_allow onerr=succeed<br>				account    required     pam_time.so<br>				account    include      password-auth<br>				password   include      password-auth<br>				<span class="hljs-comment"># pam_selinux.so close should be the first session rule</span><br>				session    required     pam_selinux.so close<br>				session    required     pam_loginuid.so<br>				<span class="hljs-comment"># pam_selinux.so open should only be followed by sessions to be executed in the user context</span><br>				session    required     pam_selinux.so open env_params<br>				session    required     pam_namespace.so<br>				session    optional     pam_keyinit.so force revoke<br>				session    include      password-auth<br><br>				~]<span class="hljs-comment"># vim /etc/user_allow</span><br>				root<br><br>				~]<span class="hljs-comment">#chmod 600 /etc/user_allow</span><br><br>				http:<span class="hljs-regexp">//</span>blog.csdn.net<span class="hljs-regexp">/yueguanghaidao/</span>article<span class="hljs-regexp">/details/</span><span class="hljs-number">7292065</span><br><br>定制Linux内核和rootfs<br>	<br>	Linux系统启动流程：<br><br>		POST --&gt; BOIS（boot sequence）--&gt; bootloader（MBR）--&gt; kernel --&gt; <span class="hljs-regexp">/sbin/i</span>nit<br>			设定默认运行级别<br>			完成系统初始化<br>			关闭对应级别下默认设定为关闭的服务，启动对应级别下默认设定为运行的服务<br>			启动虚拟终端，打印登录提示<br>			启动图形终端<br>			<br><br>		CentOS：<br>			<span class="hljs-number">5</span>:SysV init<br>			<span class="hljs-number">6</span>：upstart<br>			<span class="hljs-number">7</span>：systemd<br><br><br><br><br><br>		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/DevOps/">DevOps</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/09/20/linux/linux-manage/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux基本管理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/20/database/MySQL%E4%BC%98%E5%8C%96/">
+                        <span class="hidden-mobile">MySQL 性能优化</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appKey":"NOvQqkfNpn6NpGU7zUG0V5sb","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://arc7mtb3.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[],"appid":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appkey":"NOvQqkfNpn6NpGU7zUG0V5sb"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

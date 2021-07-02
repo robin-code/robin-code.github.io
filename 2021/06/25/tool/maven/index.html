@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个普通Java工程师的分享">
+  <meta name="author" content="robin.li">
+  <meta name="keywords" content="Java JavaScript Linux Spring-Boot MySQL Blog ljy">
+  
+  <title>maven - robin技术总结</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"robin-code.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","app_key":"NOvQqkfNpn6NpGU7zUG0V5sb","server_url":"https://arc7mtb3.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>robin's space</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="maven">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-25 11:43" pubdate>
+        星期五 2021年06月25日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      55
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">maven</h1>
+            
+            <div class="markdown-body">
+              <p>Maven作用域范围</p>
+<ol>
+<li><div class="hljs code-wrapper"><pre><code>* compile，缺省值，适用于所有阶段，会随着项目一起发布。 
+</code></pre></div>
+</li>
+<li><div class="hljs code-wrapper"><pre><code>* provided，类似compile，期望JDK、容器或使用者会提供这个依赖。如servlet.jar。 
+</code></pre></div>
+</li>
+<li><div class="hljs code-wrapper"><pre><code>* runtime，只在运行时使用，如JDBC驱动，适用运行和测试阶段。 
+</code></pre></div>
+</li>
+<li><div class="hljs code-wrapper"><pre><code>* test，只在测试时使用，用于编译和运行测试代码。不会随项目发布。 
+</code></pre></div>
+</li>
+<li><div class="hljs code-wrapper"><pre><code>* system，类似provided，需要显式提供包含依赖的jar，Maven不会在Repository中查找它。
+</code></pre></div>
+</li>
+</ol>
+<h2 id="maven-jdk版本指定"><a href="#maven-jdk版本指定" class="headerlink" title="maven jdk版本指定"></a>maven jdk版本指定</h2><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><br><span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">source</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">source</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">target</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">target</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br>     <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
+<h2 id="maven-部署"><a href="#maven-部署" class="headerlink" title="maven 部署"></a>maven 部署</h2><h2 id="Maven跳过测试"><a href="#Maven跳过测试" class="headerlink" title="Maven跳过测试"></a>Maven跳过测试</h2><h3 id="使用Maven命令"><a href="#使用Maven命令" class="headerlink" title="使用Maven命令"></a>使用Maven命令</h3><p>• DskipTests，不执行测试用例，但编译测试用例类生成相应的class文件至target/test-classes下。<br>• Dmaven.test.skip=true，不执行测试用例，也不编译测试用例类。不执行测试用例，但编译测试用例类生成相应的class文件至target/test-classes下。<br>• 使用maven.test.skip，不但跳过单元测试的运行，也跳过测试代码的编译。<br>mvn package -Dmaven.test.skip=true<br>mvn clean install -Dmaven.test.skip=true</p>
+<h3 id="在pom-xml文件中修改"><a href="#在pom-xml文件中修改" class="headerlink" title="在pom.xml文件中修改"></a>在pom.xml文件中修改</h3><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugin<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">skip</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">skip</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-surefire-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.5<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">skip</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">skip</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br><br></code></pre></div></td></tr></table></figure>
+
+<p>三 使用 mvn package -DskipTests 跳过单元测试，<br>但是会继续编译；如果没时间修改单元测试的bug，<br>或者单元测试编译错误。使用上面的，不要用这个</p>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-surefire-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.5<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">skipTests</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">skipTests</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
+
+<h2 id="maven-快照版作用"><a href="#maven-快照版作用" class="headerlink" title="maven 快照版作用"></a>maven 快照版作用</h2><p>Maven中建立的依赖管理方式基本已成为Java语言依赖管理的事实标准，Maven的替代者Gradle也基本沿用了Maven的依赖管理机制。在Maven依赖管理中，唯一标识一个依赖项是由该依赖项的三个属性构成的，分别是groupId、artifactId以及version。这三个属性可以唯一确定一个组件（Jar包或者War包）。<br>其实在Nexus仓库中，一个仓库一般分为public(Release)仓和SNAPSHOT仓，前者存放正式版本，后者存放快照版本。如果在项目配置文件中（无论是build.gradle还是pom.xml）指定的版本号带有’-SNAPSHOT’后缀，比如版本号为’Junit-4.10-SNAPSHOT’，那么打出的包就是一个快照版本。<br>快照版本和正式版本的主要区别在于，本地获取这些依赖的机制有所不同。假设你依赖一个库的正式版本，构建的时候构建工具会先在本次仓库中查找是否已经有了这个依赖库，如果没有的话才会去远程仓库中去拉取。所以假设你发布了Junit-4.10.jar到了远程仓库，有一个项目依赖了这个库，它第一次构建的时候会把该库从远程仓库中下载到本地仓库缓存，以后再次构建都不会去访问远程仓库了。所以如果你修改了代码，向远程仓库中发布了新的软件包，但仍然叫Junit-4.10.jar，那么依赖这个库的项目就无法得到最新更新。你只有在重新发布的时候升级版本，比如叫做Junit-4.11.jar，然后通知依赖该库的项目组也修改依赖版本为Junit-4.11,这样才能使用到你最新添加的功能。<br>这种方式在团队内部开发的时候会变的特别蛋痛。假设有两个小组负责维护两个组件，example-service和example-ui,其中example-ui项目依赖于example-service。而这两个项目每天都会构建多次，如果每次构建你都要升级example-service的版本，那么你会疯掉。这个时候SNAPSHOT版本就派上用场了。每天日常构建时你可以构建example-service的快照版本，比如example-service-1.0-SNAPSHOT.jar，而example-ui依赖该快照版本。每次example-ui构建时，会优先去远程仓库中查看是否有最新的example-service-1.0-SNAPSHOT.jar，如果有则下载下来使用。即使本地仓库中已经有了example-service-1.0-SNAPSHOT.jar，它也会尝试去远程仓库中查看同名的jar是否是最新的。有的人可能会问，这样不就不能充分利用本地仓库的缓存机制了吗？别着急，Maven比我们想象中的要聪明。在配置Maven的Repository的时候中有个配置项，可以配置对于SNAPSHOT版本向远程仓库中查找的频率。频率共有四种，分别是always、daily、interval、never。当本地仓库中存在需要的依赖项目时，always是每次都去远程仓库查看是否有更新，daily是只在第一次的时候查看是否有更新，当天的其它时候则不会查看；interval允许设置一个分钟为单位的间隔时间，在这个间隔时间内只会去远程仓库中查找一次，never是不会去远程仓库中查找（这种就和正式版本的行为一样了）。</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs asciidoc"><br>http://localhost:9081/repository/my_jars/<br><br><br>mvn deploy:deploy-file <br>-DgroupId=com.alo7.msa<br>-DartifactId=alo7-msa-core<br>-Dversion=1.3.17-RELEASE<br>-Dpackaging=jar <br>-Dfile=/Users/lijingyang/alo7/uploadmaven/alo7-msa-core-1.3.17-RELEASE.jar<br>-Durl=http://localhost:9081/repository/my_jars/<br>-DrepositoryId=thirdparty<br><br>mvn deploy:deploy-file \<br>-DgroupId=com.alo7.msa \<br>-DartifactId=alo7-msa-core \<br>-Dversion=1.3.16-RELEASE \<br>-Dpackaging=jar \<br>-Dfile=/Users/lijingyang/alo7/uploadmaven/alo7-msa-core-1.3.16-RELEASE.jar \<br>-Durl=http://localhost:9081/repository/my_jars/ \<br>-DrepositoryId=thirdparty<br><br><br><span class="hljs-code"> // alo7 related libraries</span><br><span class="hljs-code">    compile(&quot;com.alo7.msa:alo7-msa-core:$&#123;alo7MsaCoreVersion&#125;&quot;)</span><br><span class="hljs-code">    compile(&quot;com.alo7.framework:elide-swagger-starter:$&#123;alo7SwaggerStarterVersion&#125;&quot;)</span><br><span class="hljs-code">    compile(&quot;com.alo7.framework:logging-starter:$&#123;alo7LoggingStarterVersion&#125;&quot;)</span><br><span class="hljs-code">    compile(&quot;com.alo7.framework:alo7-web:$&#123;alo7WebStaterVersion&#125;&quot;)</span><br><br><br>mvn deploy:deploy-file \<br>-DgroupId=com.alo7.framework \<br>-DartifactId=elide-swagger-starter \<br>-Dversion=1.0.3-RELEASE \<br>-Dpackaging=jar \<br>-Dfile=/Users/lijingyang/alo7/uploadmaven/elide-swagger-starter-1.0.3-RELEASE.jar \<br>-Durl=http://localhost:9081/repository/my_jars/ \<br>-DrepositoryId=thirdparty<br><br><br>mvn deploy:deploy-file \<br>-DgroupId=com.alo7.framework \<br>-DartifactId=logging-starter \<br>-Dversion=1.0.1-RELEASE \<br>-Dpackaging=jar \<br>-Dfile=/Users/lijingyang/alo7/uploadmaven/logging-starter-1.0.1-RELEASE.jar \<br>-Durl=http://localhost:9081/repository/my_jars/ \<br>-DrepositoryId=thirdparty<br><br>mvn deploy:deploy-file \<br>-DgroupId=com.alo7.framework \<br>-DartifactId=alo7-web \<br>-Dversion=1.0.0-SNAPSHOT \<br>-Dpackaging=jar \<br>-Dfile=/Users/lijingyang/alo7/uploadmaven/alo7-web-1.0.0-SNAPSHOT.jar \<br>-Durl=http://localhost:9081/repository/my_jars/ \<br>-DrepositoryId=thirdparty<br><br>mvn deploy:deploy-file \<br>-DgroupId=io.springfox \<br>-DartifactId=springfox-swagger-ui \<br>-Dversion=2.8.0 \<br>-Dpackaging=jar \<br>-Dfile=/Users/lijingyang/alo7/uploadmaven/springfox-swagger-ui-2.8.0.jar \<br>-Durl=http://localhost:9081/repository/my_jars/ \<br>-DrepositoryId=thirdparty<br><br><span class="hljs-comment">// https://mvnrepository.com/artifact/com.unboundid/unboundid-ldapsdk</span><br>testCompile group: <span class="hljs-emphasis">&#x27;com.unboundid&#x27;</span>, name: <span class="hljs-emphasis">&#x27;unboundid-ldapsdk&#x27;</span>, version: <span class="hljs-emphasis">&#x27;4.0.6&#x27;</span><br><br>mvn deploy:deploy-file \<br>-DgroupId=com.unboundid \<br>-DartifactId=unboundid-ldapsdk \<br>-Dversion=4.0.6 \<br>-Dpackaging=jar \<br>-Dfile=/Users/lijingyang/alo7/uploadmaven/unboundid-ldapsdk-4.0.6.jar \<br>-Durl=http://localhost:9081/repository/my_jars/ \<br>-DrepositoryId=thirdparty<br></code></pre></div></td></tr></table></figure>
+
+
+<h2 id="将Jar包安装到本地仓库命令："><a href="#将Jar包安装到本地仓库命令：" class="headerlink" title="将Jar包安装到本地仓库命令："></a>将Jar包安装到本地仓库命令：</h2><figure class="highlight ada"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ada"><br><span class="hljs-comment">-- DgroupId和DartifactId构成了该jar包在pom.xml的坐标， 对应依赖的DgroupId和DartifactId</span><br><span class="hljs-comment">-- Dfile表示需要上传的jar包的绝对路径</span><br><span class="hljs-comment">-- DgroupId和DartifactId构成了该jar包在pom.xml的坐标， 对应依赖的DgroupId和DartifactId</span><br><span class="hljs-comment">-- Dfile表示需要上传的jar包的绝对路径</span><br><span class="hljs-comment">-- Durl私服上仓库的url精确地址(打开nexus左侧repositories菜单，可以看到该路径)</span><br><span class="hljs-comment">-- DrepositoryId服务器的表示id，在nexus的configuration可以看到</span><br><span class="hljs-comment">-- Dpackaging 为安装文件的种类</span><br></code></pre></div></td></tr></table></figure>
+
+<h2 id="上传Jar到私服-命令示例："><a href="#上传Jar到私服-命令示例：" class="headerlink" title="上传Jar到私服 命令示例："></a>上传Jar到私服 命令示例：</h2><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">mvn</span> deploy:deploy-file -DgroupId=org.terracotta.toolkit -DartifactId=terracotta-toolkit-api-internal -Dversion=<span class="hljs-number">1</span>.<span class="hljs-number">12</span> -Dpackaging=jar -Dfile=D:\terracotta-toolkit-api-internal-<span class="hljs-number">1</span>.<span class="hljs-number">12</span>.jar -Durl=http://ip:port/nexus/content/repositories/thirdparty/ -DrepositoryId=thirdparty<br><br><span class="hljs-attribute">mvn</span> install:install-file -DgroupId=com.oracle -DartifactId=ojdbc<span class="hljs-number">6</span> -Dversion=<span class="hljs-number">11.2.0.1</span>.<span class="hljs-number">0</span> -Dpackaging=jar -Dfile=ojdbc<span class="hljs-number">6</span>.jar<br><span class="hljs-attribute">mvn</span> install:install-file -DgroupId=com.oracle -DartifactId=ojdbc<span class="hljs-number">14</span> -Dversion=<span class="hljs-number">10.2.0.1</span>.<span class="hljs-number">0</span> -Dpackaging=jar -Dfile=ojdbc<span class="hljs-number">14</span>.jar<br><br><br><br><span class="hljs-section">&lt;dependency&gt;</span><br><span class="hljs-section">&lt;groupId&gt;</span><span class="hljs-attribute">com</span>.oracle&lt;/groupId&gt;<br><span class="hljs-section">&lt;artifactId&gt;</span><span class="hljs-attribute">ojdbc6</span>&lt;/artifactId&gt;<br><span class="hljs-section">&lt;version&gt;</span><span class="hljs-attribute">11</span>.<span class="hljs-number">2.0.1.0</span>&lt;/version&gt;<br><span class="hljs-section">&lt;/dependency&gt;</span><br> <br> <br><span class="hljs-section">&lt;dependency&gt;</span><br><span class="hljs-section">&lt;groupId&gt;</span><span class="hljs-attribute">com</span>.oracle&lt;/groupId&gt;<br><span class="hljs-section">&lt;artifactId&gt;</span><span class="hljs-attribute">ojdbc14</span>&lt;/artifactId&gt;<br><span class="hljs-section">&lt;version&gt;</span><span class="hljs-attribute">10</span>.<span class="hljs-number">2.0.1.0</span>&lt;/version&gt;<br><span class="hljs-section">&lt;/dependency&gt;</span><br><br></code></pre></div></td></tr></table></figure>
+<h2 id="maven-deploy失败"><a href="#maven-deploy失败" class="headerlink" title="maven deploy失败"></a>maven deploy失败</h2><p>[ERROR] Failed to execute goal org.apache.maven.plugins:maven-install-plugin:2.5.2:install (default-cli) on project nexus: The packaging for this project did not assign a file to the build artifact -&gt; [Help 1]</p>
+<ol>
+<li>mvn jar:jar install:install</li>
+<li>mvn jar:jar deploy:deploy</li>
+</ol>
+<h2 id="maven-部署到远程tomcat"><a href="#maven-部署到远程tomcat" class="headerlink" title="maven 部署到远程tomcat"></a>maven 部署到远程tomcat</h2><figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml">1 .添加tomcat插件<br><span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">finalName</span>&gt;</span>项目名称<span class="hljs-tag">&lt;/<span class="hljs-name">finalName</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.tomcat.maven<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>tomcat7-maven-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>    <span class="hljs-comment">&lt;!--这里也可以使用tomcat7-maven-plugin--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>   <span class="hljs-comment">&lt;!--最新版本--&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>http://localhost:8080/manager/text<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span>    <span class="hljs-comment">&lt;!--配置远程tomcat的路劲--&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">username</span>&gt;</span>admin<span class="hljs-tag">&lt;/<span class="hljs-name">username</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">password</span>&gt;</span>admin<span class="hljs-tag">&lt;/<span class="hljs-name">password</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">uriEncoding</span>&gt;</span>UTF-8<span class="hljs-tag">&lt;/<span class="hljs-name">uriEncoding</span>&gt;</span>   <span class="hljs-comment">&lt;!--tomcat的url编码  达到和修改server.xml文件一样的功能--&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span><br><br>2. tomcat 添加用户  tomcat-home/conf/comcat-users.xml<br><br><span class="hljs-tag">&lt;<span class="hljs-name">role</span> <span class="hljs-attr">rolename</span>=<span class="hljs-string">&quot;manager-gui&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">role</span> <span class="hljs-attr">rolename</span>=<span class="hljs-string">&quot;manager-script&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">user</span> <span class="hljs-attr">username</span>=<span class="hljs-string">&quot;admin&quot;</span> <span class="hljs-attr">password</span>=<span class="hljs-string">&quot;admin&quot;</span> <span class="hljs-attr">roles</span>=<span class="hljs-string">&quot;manager-gui,manager-script”/&gt;</span></span><br><span class="hljs-string"><span class="hljs-tag"></span></span><br><span class="hljs-string"><span class="hljs-tag"></span></span><br><span class="hljs-string"><span class="hljs-tag">3. tomcat7:deploy</span></span><br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appKey":"NOvQqkfNpn6NpGU7zUG0V5sb","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://arc7mtb3.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[],"appid":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appkey":"NOvQqkfNpn6NpGU7zUG0V5sb"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

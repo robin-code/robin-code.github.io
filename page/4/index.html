@@ -1,0 +1,996 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个普通Java工程师的分享">
+  <meta name="author" content="robin.li">
+  <meta name="keywords" content="Java JavaScript Linux Spring-Boot MySQL Blog ljy">
+  
+  <title>robin技术总结</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"robin-code.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","app_key":"NOvQqkfNpn6NpGU7zUG0V5sb","server_url":"https://arc7mtb3.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>robin's space</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Make The World A Better Place">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/10/15/java/jdk/" target="_blank">
+          <img src="/img/jdk.jpeg" srcset="/img/loading.gif" lazyload alt="JDK配置">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+          <i class="index-pin iconfont icon-top" title="Pin on top"></i>
+        
+        <a href="/2020/10/15/java/jdk/" target="_blank">
+          JDK配置
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/15/java/jdk/" target="_blank">
+          
+          
+            
+          
+          ubuntu jdk配置try catch finallyfinally 里的return会覆盖try内的返回值
+win10 jdk环境变量配置配置环境变量Path双击Path，点击新建，添加“%JAVA_HOME%\bin”；
+再次点击新建，添加“%JAVA_HOME%\jre\bin”。
+这里要特别注意一下，win10环境变量值是一行一行的，不要直接点击新建，添加“%JAVA_HOME%\bi
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-15 14:59" pubdate>
+              2020-10-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JDK/">JDK</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/10/15/java/juc/" target="_blank">
+          <img src="/img/jdk.jpeg" srcset="/img/loading.gif" lazyload alt="Java JUC">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+          <i class="index-pin iconfont icon-top" title="Pin on top"></i>
+        
+        <a href="/2020/10/15/java/juc/" target="_blank">
+          Java JUC
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/15/java/juc/" target="_blank">
+          
+          
+            
+          
+          synchronizedsynchronized 代码块中，如果发生异常，锁会被释放在并发处理过程中，有异常要多加小心，不然可能发生数据不一致的情况。比如，在一个web app处理过程中，多个servlet线程共同访问同一资源，这时如果异常处理不合适，第一个线程抛出异常，其他线程就会进入同步代码区，有可能访问到异常产生的数据。因此要非常小心处理同步业务员逻辑中的异常。
+synchronized 是
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-15 14:59" pubdate>
+              2020-10-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java/">Java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JDK/">JDK</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/10/15/database/MySQL-basic/" target="_blank">
+          <img src="/img/mysql.png" srcset="/img/loading.gif" lazyload alt="MySQL基本操作">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+          <i class="index-pin iconfont icon-top" title="Pin on top"></i>
+        
+        <a href="/2020/10/15/database/MySQL-basic/" target="_blank">
+          MySQL基本操作
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/15/database/MySQL-basic/" target="_blank">
+          
+          
+            
+          
+          MySQL数据类型数据库非负字段,尽量选用无符号整形存储varchar(N) n是字符数uft8 中一个汉字三个字节,英文一个字符两个字节355个汉字==765字节
+text blob智能使用前缀索引
+不要使用枚举类型,MySQL中enum类型的orderby 效率低,
+时间存储,timeStamp是个字节,datetime 8个字节
+Mysql DML 语句ALTER TABLE YourTab
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-15 10:32" pubdate>
+              2020-10-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Database/">Database</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL/">MySQL</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/10/15/database/MySQL-DevOps/" target="_blank">
+          <img src="/img/default.jpeg" srcset="/img/loading.gif" lazyload alt="MySQL运维">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+          <i class="index-pin iconfont icon-top" title="Pin on top"></i>
+        
+        <a href="/2020/10/15/database/MySQL-DevOps/" target="_blank">
+          MySQL运维
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/15/database/MySQL-DevOps/" target="_blank">
+          
+          
+            
+          
+          MySQL安装Ubuntu安装MySQL5.71234567891011sudo apt updatesudo apt install wget -ywget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.debsudo dpkg -i mysql-apt-config_0.8.12-1_all.debsudo apt-get up
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-15 09:34" pubdate>
+              2020-10-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Database/">Database</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL/">MySQL</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/10/10/DevOps/git/git-config/" target="_blank">
+          <img src="/img/git/git.png" srcset="/img/loading.gif" lazyload alt="Git使用总结">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+          <i class="index-pin iconfont icon-top" title="Pin on top"></i>
+        
+        <a href="/2020/10/10/DevOps/git/git-config/" target="_blank">
+          Git使用总结
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/10/DevOps/git/git-config/" target="_blank">
+          
+          
+            
+          
+          123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384[user]	name = robin-li[core]    pager = l
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-10 10:50" pubdate>
+              2020-10-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/DevOps/">DevOps</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Tools/">Tools</a>
+            
+              <a href="/tags/Git/">Git</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/10/10/DevOps/git/git/" target="_blank">
+          <img src="/img/git/git.png" srcset="/img/loading.gif" lazyload alt="Git使用总结">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+          <i class="index-pin iconfont icon-top" title="Pin on top"></i>
+        
+        <a href="/2020/10/10/DevOps/git/git/" target="_blank">
+          Git使用总结
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/10/DevOps/git/git/" target="_blank">
+          
+          
+            
+          
+          git commit相关1.1 git 撤销提交
+git reset –hard 版本号
+
+注意使用 –hard 参数会抛弃当前工作区的修改使用 –soft 参数的话会回退到之前的版本，但是保留当前工作区的修改，可以重新提交
+1.2 git rebase
+git rebase -i &lt;要合并进来的分支名称&gt;
+
+适用场景
+使用 git rebase -i HEAD~&lt;次数&gt;进
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-10 10:50" pubdate>
+              2020-10-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/DevOps/">DevOps</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Tools/">Tools</a>
+            
+              <a href="/tags/Git/">Git</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/09/30/database/MySQL%20lock/" target="_blank">
+          <img src="/img/default.jpeg" srcset="/img/loading.gif" lazyload alt="MySQL lock">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+          <i class="index-pin iconfont icon-top" title="Pin on top"></i>
+        
+        <a href="/2020/09/30/database/MySQL%20lock/" target="_blank">
+          MySQL lock
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/30/database/MySQL%20lock/" target="_blank">
+          
+          
+            
+          
+          mysql锁innodb行锁两种行锁共享锁（s）：又称读锁。允许一个事务去读一行，阻止其他事务获得相同数据集的排它锁。若事务1对记录A加上S锁，则事务1可以读取A但不能修改A，其他事务只能再对A加S锁，不能加X锁。这就保证了其他事务可以读A，但在事务1释放A上的S锁之前不能对A做任何的修改。排他锁（X）：又称写锁。获取排他锁的事务可以更新数据，阻止其他事务获取相同数据集的共享读锁和排他写锁。若事务
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-30 14:50" pubdate>
+              2020-09-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Database/">Database</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL/">MySQL</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/09/30/database/MySQL%E6%8A%A5%E9%94%99/" target="_blank">
+          <img src="/img/default.jpeg" srcset="/img/loading.gif" lazyload alt="MySQL 报错总结">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+          <i class="index-pin iconfont icon-top" title="Pin on top"></i>
+        
+        <a href="/2020/09/30/database/MySQL%E6%8A%A5%E9%94%99/" target="_blank">
+          MySQL 报错总结
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/30/database/MySQL%E6%8A%A5%E9%94%99/" target="_blank">
+          
+          
+            
+          
+          osx MySQL启动错误之error: Found option without preceding group in config file: /Users/gukey/.my.cnf at line: 1my.cnf文件错误，编码或者格式有误
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-30 14:50" pubdate>
+              2020-09-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Database/">Database</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL/">MySQL</a>
+            
+              <a href="/tags/Exception/">Exception</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/09/20/database/MySQL%E4%BC%98%E5%8C%96/" target="_blank">
+          <img src="/img/default.jpeg" srcset="/img/loading.gif" lazyload alt="MySQL 性能优化">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+          <i class="index-pin iconfont icon-top" title="Pin on top"></i>
+        
+        <a href="/2020/09/20/database/MySQL%E4%BC%98%E5%8C%96/" target="_blank">
+          MySQL 性能优化
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/20/database/MySQL%E4%BC%98%E5%8C%96/" target="_blank">
+          
+          
+            
+          
+          MySQL中In与Exists的区别《高性能MySQL》书籍上对于in和exists的描述书上说，MySQL会把in的查询语句改成exists再去执行（实际上我们在没有索引情况下，他们的执行过程确实是一致的）
+在《MySQL技术内幕:SQL编程》这本书中说：确实有很多DBA认为EXISTS比IN的执行效率更高，可能是当时优化器还不是很稳定和足够优秀，但是目前绝大数的情况下，IN和EXISTS都具有
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-20 13:23" pubdate>
+              2020-09-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Database/">Database</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL/">MySQL</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/09/20/database/MySQL%E7%B4%A2%E5%BC%95%E7%9B%B8%E5%85%B3/" target="_blank">
+          <img src="/img/default.jpeg" srcset="/img/loading.gif" lazyload alt="MySQL 索引">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+          <i class="index-pin iconfont icon-top" title="Pin on top"></i>
+        
+        <a href="/2020/09/20/database/MySQL%E7%B4%A2%E5%BC%95%E7%9B%B8%E5%85%B3/" target="_blank">
+          MySQL 索引
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/20/database/MySQL%E7%B4%A2%E5%BC%95%E7%9B%B8%E5%85%B3/" target="_blank">
+          
+          
+            
+          
+          索引数据结构索引结构：二叉树、红黑树、hash、BTree、B+Tree 。
+索引结构为了更快找到目标数据。
+二叉查找树定义：每个结点最多有两个子树，左子树比父节点小，右子树比父节点大。
+缺点：会出现极端情况导致整棵树只有左子树或只有右子树。
+4.2、红黑树定义：
+性质1. 节点是红色或黑色。性质2. 根节点是黑色。性质3 每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-20 13:23" pubdate>
+              2020-09-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Database/">Database</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL-index/">MySQL index</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/3/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><a class="extend next" rel="next" href="/page/5/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      $.ajax({
+        type: 'GET',
+        url: 'https://v1.hitokoto.cn/',
+        headers: {},
+        dataType: 'json',
+        success: function (result) {
+          var text;
+          if (result) {
+            var keys = 'hitokoto'.split('.')
+            if (result instanceof Array) {
+              result = result[0]
+            }
+            for (const k of keys) {
+              var value = result[k]
+              if (typeof value === 'string') {
+                text = value
+                break
+              } else if (value instanceof Object) {
+                result = value
+              }
+            }
+          }
+          text ? typing(text) : typing(title);
+        },
+        error: function () {
+          typing(title)
+        }
+      })
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

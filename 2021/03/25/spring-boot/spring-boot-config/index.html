@@ -1,0 +1,539 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个普通Java工程师的分享">
+  <meta name="author" content="robin.li">
+  <meta name="keywords" content="Java JavaScript Linux Spring-Boot MySQL Blog ljy">
+  
+  <title>springboot 配置 - robin技术总结</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"robin-code.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","app_key":"NOvQqkfNpn6NpGU7zUG0V5sb","server_url":"https://arc7mtb3.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>robin's space</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="springboot 配置">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-25 16:40" pubdate>
+        星期四 2021年03月25日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">springboot 配置</h1>
+            
+            <div class="markdown-body">
+              <ol>
+<li>自动装配</li>
+<li>内嵌tomcat</li>
+<li>外部化配置</li>
+<li>actuactor</li>
+</ol>
+<h3 id="配置文件加载顺序"><a href="#配置文件加载顺序" class="headerlink" title="配置文件加载顺序"></a>配置文件加载顺序</h3><ul>
+<li>启动参数</li>
+<li>Active 中的</li>
+<li>include</li>
+<li>最后默认的<br>Spring Boot支持从以下位置加载application.yml文件：</li>
+</ul>
+<ol>
+<li>当前目录下的/config子目录；</li>
+<li>当前目录</li>
+<li>classpath下的/config包</li>
+<li>classpath根路径</li>
+</ol>
+<h2 id="读取list类型变量"><a href="#读取list类型变量" class="headerlink" title="读取list类型变量"></a>读取list类型变量</h2><figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus">property类型的list<br>email<span class="hljs-selector-class">.sendTo</span><span class="hljs-selector-attr">[0]</span>=somebody@example<span class="hljs-selector-class">.com</span><br>email<span class="hljs-selector-class">.sendTo</span><span class="hljs-selector-attr">[1]</span>=somebody2@example<span class="hljs-selector-class">.com</span><br>email<span class="hljs-selector-class">.sendTo</span><span class="hljs-selector-attr">[2]</span>=somebody3@example.com<br></code></pre></div></td></tr></table></figure>
+
+<h3 id="springboot-开启跨域"><a href="#springboot-开启跨域" class="headerlink" title="springboot 开启跨域"></a>springboot 开启跨域</h3><figure class="highlight accesslog"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs accesslog">@Configuration<br>public class WebMvcConfig implements WebMvcConfigurer &#123;<br>    @Override<br>    public void addCorsMappings(CorsRegistry registry) &#123;<br>        registry.addMapping(<span class="hljs-string">&quot;/**&quot;</span>)<br>                .allowedOrigins(<span class="hljs-string">&quot;*&quot;</span>)<br>                .allowedMethods(<span class="hljs-string">&quot;<span class="hljs-keyword">POST</span>&quot;</span>, <span class="hljs-string">&quot;<span class="hljs-keyword">GET</span>&quot;</span>, <span class="hljs-string">&quot;<span class="hljs-keyword">PUT</span>&quot;</span>, <span class="hljs-string">&quot;<span class="hljs-keyword">OPTIONS</span>&quot;</span>, <span class="hljs-string">&quot;<span class="hljs-keyword">DELETE</span>&quot;</span>)<br>                .maxAge(<span class="hljs-number">3600</span>)<br>                .allowCredentials(true);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+
+<h3 id="单独指定Tomcat版本"><a href="#单独指定Tomcat版本" class="headerlink" title="单独指定Tomcat版本"></a>单独指定Tomcat版本</h3><figure class="highlight asciidoc"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs asciidoc">gradle:<br>ext[<span class="hljs-emphasis">&#x27;tomcat.version&#x27;</span>] = <span class="hljs-emphasis">&#x27;8.5.34&#x27;</span><br><br>maven<br>&lt;properties&gt;<br><span class="hljs-code">......</span><br><span class="hljs-code">    &lt;tomcat.version&gt;9.0.5&lt;/tomcat.version&gt;</span><br><span class="hljs-code">......</span><br>&lt;properties&gt;<br></code></pre></div></td></tr></table></figure>
+
+<h3 id="Spring-boot内存压榨"><a href="#Spring-boot内存压榨" class="headerlink" title="Spring boot内存压榨"></a>Spring boot内存压榨</h3><p>项目中需要一个Java HTTP服务器作为代理，这个服务只是偶尔执行几个命令，并没有什么负载(这个很关键)。基于Java语言、web服务器和开发效率上的考虑，我们选择了Spring boot框架。但是，服务上线后问题来了，本来只有1G内存的容器，Spring boot占用了400M内存。接下来就得优化Spring boot的内存了。<br>第一个想到的是JVM Xmx Xms的设置问题。通过jmap -heap命令查看，eden +from + to +old内存占用了200M，由于Xmx设置比较大，eden区的内存区域比较大，这样就推迟了GC的动作。导致Spring boot占用了比较大的内存。之后，Xms设置为了64M，Spring boot程序内存减少到200M。<br>问题来了，Heap内存设置这么小，为什么还占用这么多内存。接下来用jstack查看内存发现了大量的线程在运行，主要有GC task thread，http-nio thread，C2 CompilerThread，足有上百个线程在运行。Docker容器虽然隔离了资源，但是共用了操作系统内核，Spring boot发现有72个核，那就开足了马力跑线程，导致线程数量巨多。JVM默认线程栈大小是1M，光线程的开销就耗去了100多M。</p>
+<ul>
+<li>GC task thread：垃圾回收线程</li>
+<li>http-nio thread：tomcat网络处理网络请求线程</li>
+<li>C2CompilerThread：JIT编译线程，动态编译Java运行代码，C2表示编译的是server端代码<br>agent的服务比较简单，不会有太深栈层次，因此把Xss设置为256k，这样可以减少大部分栈内存的开销。Gc线程数量太多，减少为两个=&gt; -XX:ParallelGCThreads=2。<br>Spring boot自带的tomcat线程数默认值为200个，我们没有这么大的并发量，这里修改Spring boot的配置application.properties的内容=&gt; server.tomcat.max-threads = 10。<br>JIT是JVM为了优化执行频率比较高的字节码设计的技术，JIT把字节码编译为机器码，之后执行则不需要解释字节码，直接运行机器码即可。我们的服务没有什么负载，即使不优化也不受影响，这里的优化是把JIT关掉，在Java启动的参数中添加 =&gt; -Djava.compiler=NONE，这样就不会再有CompilerThread了。<br>经过线程的优化，JVM省去了大量的线程栈开销，最后把程序压到了100M。Java本身就是内存消耗大户，裸程序启动即消耗了30M内存，这里融合了Spring框架Tomcat服务器消耗100M内存也没有太离谱，优化到此结束。</li>
+</ul>
+<h2 id="Async-原理"><a href="#Async-原理" class="headerlink" title="@Async 原理"></a>@Async 原理</h2><p>整体流程大体可梳理为两条线：</p>
+<p>1.从注解开始：@EnableAsync–》ProxyAsyncConfiguration类构造一个bean（类型：AsyncAnnotationBeanPostProcessor）</p>
+<p>2.从AsyncAnnotationBeanPostProcessor这个类的bean的生命周期走：AOP-Advisor切面初始化（setBeanFactory()）–》AOP-生成代理类AopProxy（postProcessAfterInitialization()）–》AOP-切点执行（InvocationHandler.invoke）</p>
+<h2 id="spring-cloud-feign"><a href="#spring-cloud-feign" class="headerlink" title="spring cloud feign"></a>spring cloud feign</h2><p><img src="/img/spring/feign.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>启动时，程序会进行包扫描，扫描所有包下所有@FeignClient注解的类，并将这些类注入到spring的IOC容器中。</li>
+<li>当定义的Feign中的接口被调用时，通过JDK的动态代理来生成RequestTemplate。RequestTemplate中包含请求的所有信息，如请求参数，请求URL等。</li>
+<li>RequestTemplate Request，然后将Request交给client处理，client默认是JDK的HTTPUrlConnection，也可以是OKhttp、Apache的HTTPClient等。</li>
+<li>最后client封装成LoadBaLanceClient，结合ribbon负载均衡地发起调用。</li>
+</ul>
+<p>1、启用<br>启动配置上检查是否有@EnableFeignClients注解，如果有该注解，则开启包扫描，扫描被@FeignClient注解的接口。扫描出该注解后，<br>通过beanDefinition注入到IOC容器中，方便后续被调用使用。</p>
+<p>@EnableFeignClients 是关于注解扫描的配置，使用了@Import(FeignClientsRegistrar.class)。在spring context处理过程中，这个Import会在解析Configuration的时候当做提供了其他的bean definition的扩展，Spring通过调用其registerBeanDefinitions方法来获取其提供的bean definition。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript"><span class="hljs-keyword">class</span> <span class="hljs-symbol">FeignClientsRegistrar</span> <span class="hljs-symbol">implements</span> <span class="hljs-symbol">ImportBeanDefinitionRegistrar, <span class="hljs-symbol">ResourceLoaderAware</span>, <span class="hljs-symbol">EnvironmentAware</span></span> &#123;<br>    <br>    @Override<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> registerBeanDefinitions(AnnotationMetadata metadata, BeanDefinitionRegistry registry) &#123;<br>        registerDefaultConfiguration(metadata, registry);<br>        registerFeignClients(metadata, registry);<br>    &#125;<br><br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>FeignClientsRegistrar里重写了spring里ImportBeanDefinitionRegistrar接口的registerBeanDefinitions方法。也就是在启动时，处理了EnableFeignClients注解后，registry里面会多出一些关于Feign的BeanDefinition</p>
+<h2 id="springboot-自动配置原理"><a href="#springboot-自动配置原理" class="headerlink" title="springboot 自动配置原理"></a>springboot 自动配置原理</h2><p>@SpringBootApplication等同于下面三个注解：</p>
+<p>@SpringBootConfiguration<br>@EnableAutoConfiguration<br>@ComponentScan<br>其中@EnableAutoConfiguration是关键(启用自动配置)，</p>
+<p>内部实际上就去加载META-INF/spring.factories文件的信息，然后筛选出以EnableAutoConfiguration为key的数据，加载到IOC容器中，实现自动配置功能！</p>
+<p>@EnableAutoConfiguration 注解包含了AutoConfigurationPackage 还有一个<br>@Import(AutoConfigurationImportSelector.class)</p>
+<p>重写了方法 selectImports ，会根据注解元信息，扫描响应的包，<br>配置信息是从哪里来的(进去getCandidateConfigurations方法)：<br>SpringFactoriesLoader</p>
+<ul>
+<li>FACTORIES_RESOURCE_LOCATION的值是META-INF/spring.factories</li>
+<li>Spring启动的时候会扫描所有jar路径下的META-INF/spring.factories，将其文件包装成Properties对象</li>
+<li>从Properties对象获取到key值为EnableAutoConfiguration的数据，然后添加到容器里边</li>
+</ul>
+<p>其中@EnableAutoConfiguration是关键(启用自动配置)，内部实际上就去加载META-INF/spring.factories文件的信息，然后筛选出以EnableAutoConfiguration为key的数据，加载到IOC容器中，实现自动配置功能！</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Spring-Boot/">Spring-Boot</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appKey":"NOvQqkfNpn6NpGU7zUG0V5sb","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://arc7mtb3.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[],"appid":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appkey":"NOvQqkfNpn6NpGU7zUG0V5sb"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

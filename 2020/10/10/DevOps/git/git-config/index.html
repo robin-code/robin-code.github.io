@@ -1,0 +1,516 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个普通Java工程师的分享">
+  <meta name="author" content="robin.li">
+  <meta name="keywords" content="Java JavaScript Linux Spring-Boot MySQL Blog ljy">
+  
+  <title>Git使用总结 - robin技术总结</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"robin-code.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","app_key":"NOvQqkfNpn6NpGU7zUG0V5sb","server_url":"https://arc7mtb3.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>robin's space</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Git使用总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-10 10:50" pubdate>
+        星期六 2020年10月10日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      460 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Git使用总结</h1>
+            
+            <div class="markdown-body">
+              <figure class="highlight ini"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ini"><br><br><span class="hljs-section">[user]</span><br>	<span class="hljs-attr">name</span> = robin-li<br><span class="hljs-section">[core]</span><br>    <span class="hljs-attr">pager</span> = less -FRS<br>    <span class="hljs-attr">editor</span> = vim<br>    <span class="hljs-attr">autocrlf</span> = <span class="hljs-literal">false</span><br>    <span class="hljs-attr">excludesfile</span> = ~/.gitignore-global<br>    <span class="hljs-comment"># Only use on Windows networks share : git config --local core.filemode false</span><br>    <span class="hljs-attr">filemode</span> = <span class="hljs-literal">false</span><br>	<span class="hljs-attr">attributesfile</span> = ~/.gitattributes<br>	<span class="hljs-attr">trustctime</span> = <span class="hljs-literal">false</span><br><br>	<span class="hljs-comment"># Treat spaces before tabs and all kinds of trailing whitespace as an error.</span><br>	<span class="hljs-comment"># [default] trailing-space: looks for spaces at the end of a line</span><br>	<span class="hljs-comment"># [default] space-before-tab: looks for spaces before tabs at the beginning of a line</span><br>	<span class="hljs-attr">whitespace</span> = space-before-tab,-indent-with-non-tab,trailing-space<br><br>	<span class="hljs-comment"># Make `git rebase` safer on macOS.</span><br>	<span class="hljs-comment"># More info: &lt;http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/&gt;</span><br>	<span class="hljs-attr">trustctime</span> = <span class="hljs-literal">false</span><br><br>	<span class="hljs-comment"># Prevent showing files whose names contain non-ASCII symbols as unversioned.</span><br>	<span class="hljs-comment"># http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html</span><br>	<span class="hljs-attr">precomposeunicode</span> = <span class="hljs-literal">false</span><br><br>	<span class="hljs-comment"># Speed up commands involving untracked files such as `git status`.</span><br>	<span class="hljs-comment"># https://git-scm.com/docs/git-update-index#_untracked_cache</span><br>	<span class="hljs-attr">untrackedCache</span> = <span class="hljs-literal">true</span><br>    <span class="hljs-attr">editor</span> = vim<br><span class="hljs-section">[color &quot;branch&quot;]</span><br>    <span class="hljs-attr">current</span> = yellow reverse<br>    <span class="hljs-attr">local</span> = yellow<br>    <span class="hljs-attr">remote</span> = green<br><span class="hljs-section">[color &quot;diff&quot;]</span><br>    <span class="hljs-attr">meta</span> = yellow bold<br>    <span class="hljs-attr">frag</span> = magenta bold<br>    <span class="hljs-attr">old</span> = red bold<br>    <span class="hljs-attr">new</span> = green bold<br><span class="hljs-section">[color &quot;status&quot;]</span><br>    <span class="hljs-attr">added</span> = yellow<br>    <span class="hljs-attr">changed</span> = green<br>    <span class="hljs-attr">untracked</span> = cyan<br><span class="hljs-section">[init]</span><br>	<span class="hljs-attr">defaultBranch</span> = main<br><span class="hljs-section">[commit]</span><br>    <span class="hljs-attr">template</span> = ~/.git-templates/git-commit<br><span class="hljs-section">[apply]</span><br>    <span class="hljs-attr">whitespace</span> = nowarn<br><br><span class="hljs-section">[status]</span><br>    <span class="hljs-attr">showuntrackedfiles</span> = all<br><br><span class="hljs-section">[push]</span><br>    <span class="hljs-attr">default</span> = current<br>	<span class="hljs-comment"># Make `git push` push relevant annotated tags when pushing branches out.</span><br>	<span class="hljs-attr">followTags</span> = <span class="hljs-literal">true</span><br><span class="hljs-section">[pull]</span><br>	<span class="hljs-attr">rebase</span> = <span class="hljs-literal">false</span><br><span class="hljs-section">[merge]</span><br><br>	<span class="hljs-comment"># Include summaries of merged commits in newly created merge commit messages</span><br>	<span class="hljs-attr">log</span> = <span class="hljs-literal">true</span><br><span class="hljs-section">[diff]</span><br>    <span class="hljs-attr">tool</span> = icdiff<br><span class="hljs-section">[help]</span><br><br>	<span class="hljs-comment"># Automatically correct and execute mistyped commands.</span><br>	<span class="hljs-attr">autocorrect</span> = <span class="hljs-number">1</span><br><span class="hljs-section">[difftool]</span><br>    <span class="hljs-attr">prompt</span> = <span class="hljs-literal">false</span><br><br><span class="hljs-section">[difftool &quot;icdiff&quot;]</span><br>    <span class="hljs-attr">cmd</span> = icdiff --highlight --line-numbers -L \<span class="hljs-string">&quot;$BASE\&quot; -L \&quot;$REMOTE\&quot; \&quot;$LOCAL\&quot; \&quot;$REMOTE\&quot;</span><br><span class="hljs-string"></span><br><span class="hljs-string">[alias]</span><br><span class="hljs-string">    # Show defined aliases</span><br><span class="hljs-string">    aliases = !&quot;</span>git config --get-regexp <span class="hljs-string">&#x27;alias.*&#x27;</span> | colrm <span class="hljs-number">1</span> <span class="hljs-number">6</span> | sed <span class="hljs-string">&#x27;s/[ ]/ = /&#x27;</span><span class="hljs-string">&quot;</span><br><span class="hljs-string">	# Show the user email for the current repository</span><br><span class="hljs-string">    whoami = config user.email</span><br><span class="hljs-string">    b = branch</span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br></code></pre></div></td></tr></table></figure>
+
+<figure class="highlight asciidoc"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs asciidoc">alias mi=&quot;mvn clean install -Dmaven.test.skip=true&quot;<br>alias mvnc=<span class="hljs-emphasis">&#x27;mvn clean&#x27;</span><br>alias mvnci=<span class="hljs-emphasis">&#x27;mvn clean install&#x27;</span><br>alias mvncist=<span class="hljs-emphasis">&#x27;mvn clean install -DskipTests&#x27;</span><br>alias mvncisto=<span class="hljs-emphasis">&#x27;mvn clean install -DskipTests --offline&#x27;</span><br>alias mvnct=<span class="hljs-emphasis">&#x27;mvn clean test&#x27;</span><br>alias mvncv=<span class="hljs-emphasis">&#x27;mvn clean verify&#x27;</span><br>alias mvncvst=<span class="hljs-emphasis">&#x27;mvn clean verify -DskipTests&#x27;</span><br>alias mvndt=<span class="hljs-emphasis">&#x27;mvn dependency:tree&#x27;</span><br>alias mvnjetty=<span class="hljs-emphasis">&#x27;mvn jetty:run&#x27;</span><br>alias mvnsrc=<span class="hljs-emphasis">&#x27;mvn dependency:sources&#x27;</span><br>alias mvnt=<span class="hljs-emphasis">&#x27;mvn test&#x27;</span><br>alias mvntc=<span class="hljs-emphasis">&#x27;mvn tomcat:run&#x27;</span><br>alias mvntc7=<span class="hljs-emphasis">&#x27;mvn tomcat7:run&#x27;</span><br>alias mvn-updates=<span class="hljs-emphasis">&#x27;mvn versions:display-dependency-updates&#x27;</span><br><br><br>## alias git<br>alias grba=<span class="hljs-emphasis">&#x27;git rebase --abort&#x27;</span><br>alias grbc=<span class="hljs-emphasis">&#x27;git rebase --continue&#x27;</span><br>alias grbs=<span class="hljs-emphasis">&#x27;git rebase --skip&#x27;</span><br>alias grbi=<span class="hljs-emphasis">&#x27;git rebase -i&#x27;</span><br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/DevOps/">DevOps</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Tools/">Tools</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Git/">Git</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/10/DevOps/curl/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">curl参数</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/10/DevOps/git/git/">
+                        <span class="hidden-mobile">Git使用总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appKey":"NOvQqkfNpn6NpGU7zUG0V5sb","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://arc7mtb3.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[],"appid":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appkey":"NOvQqkfNpn6NpGU7zUG0V5sb"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

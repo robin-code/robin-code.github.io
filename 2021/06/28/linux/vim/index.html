@@ -1,0 +1,513 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个普通Java工程师的分享">
+  <meta name="author" content="robin.li">
+  <meta name="keywords" content="Java JavaScript Linux Spring-Boot MySQL Blog ljy">
+  
+  <title>vim - robin技术总结</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"robin-code.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","app_key":"NOvQqkfNpn6NpGU7zUG0V5sb","server_url":"https://arc7mtb3.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>robin's space</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="vim">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-28 14:27" pubdate>
+        星期一 2021年06月28日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">vim</h1>
+            
+            <div class="markdown-body">
+              <h2 id="custom-config"><a href="#custom-config" class="headerlink" title="custom config"></a>custom config</h2><h3 id="vimrc"><a href="#vimrc" class="headerlink" title="vimrc"></a>vimrc</h3><p>set paste 剪切板不添加注释</p>
+<figure class="highlight ada"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ada">VI编辑器<br><br>vi:Visual <span class="hljs-keyword">Interface</span><br>vim:vi 编辑器的增强版<br><br>vi是一个全屏编辑器，模式化编辑器<br><br>vim模式：<br>编辑模式（也即通常所说的：命令模式）<br>输入模式<br>末行模式<br><br>模式转换：<br>编辑<span class="hljs-comment">--&gt;输入：</span><br>   i : 当前光标所在字符的前面，转为输入模式<br>   a : 当前光标所在字符的后面，转为输入模式<br>   o : 当前光标所在行的下方，新建一行，转为输入模式<br>   <br>   I : 当前光标所在行的行首，转为输入模式<br>   A : 当前光标所在行的行尾，转为输入模式<br>   O : 当前光标所在行的上方，新建一行，转为输入模式<br><br>输入<span class="hljs-comment">--&gt;编辑</span><br>   ESC<br>   <br>编辑<span class="hljs-comment">--&gt;末行</span><br>   :<br><br>末行--&gt;编辑<br>   ESC,ESC<br><br><br><br>一、打开文件<br>vim /PATH/TO/SOMEFILE<br>   vim +n file: 表示打开文件之后，直接处于第n行<br>   vim + file: 表示打开一个文件之后，光标直接处在文件底部<br>   vim +/PATTERN : 表示打开问价之后，定位至第一次被<span class="hljs-type">PATTERN</span>匹配到的行的行首<br>   <br>二、关闭文件<br><span class="hljs-number">1</span>、末行模式关闭文件<br>:q  退出<br>:wq 保存并退出<br>:q! 不保存并退出<br>:w  保存<br>:w! 强行保存<br>:wq &lt;==&gt; :x<br><br><span class="hljs-number">2</span>、编辑模式下<br>ZZ:保存并退出<br><br>三、移动光标(编辑模式)<br><span class="hljs-number">1</span>、逐字符移动<br>   h:左<br>   l:右<br>   j:下<br>   k:上<br><br>   注意：前面跟数字，表示向对应的方向移动的字符个数，比如：<span class="hljs-number">5</span>h 表示向左移动<span class="hljs-number">5</span>个字符   <br><br><span class="hljs-number">2</span>、以单词为单位移动<br>   w : 移动至下一个单词的词首<br>   e : 跳至当前或者下一单词的词尾<br>   b : 跳至当前或者下一单词的词首<br>   <br>   注意：前面跟数字，表示向对应的方向移动的单位的个数<br>   <br><span class="hljs-number">3</span>、行内跳转<br>   <span class="hljs-number">0</span> : 绝对行首<br>   ^ : 行首的第一个非空白字符<br>   $ : 绝对行尾<br>   <br><span class="hljs-number">4</span>、行间跳转<br>   #G : 跳转至第#行<br>   G  : 跳转到末行<br>   <br>   末行模式下，直接给出行号即可<br><br><span class="hljs-number">4</span>、翻屏<br>   CTRL+f : 向下翻一屏<br>   CTRL+b : 向上翻一屏<br><br>   CTRL+d : 向下翻半屏<br>   CTRL+u : 向上翻半屏<br><br><span class="hljs-number">5</span>、删除单个字符<br>   x  : 删除光标所在处的单个字符<br>   #x : 删除光标所在处以及向后的共#个字符<br><br>六、删除命令 d<br>   d命令跟跳转命令组合使用<br>   #dw、#de、#db 删除对应#个单词的组合命令<br><br>   dd: 删除当前光标所在行<br>   #dd:删除包括当前光标坐在行在内的#行<br><br>   在末行模式下，使用<br>   startLine,endLine d : 表示删除第几行到第几行的字符，例如：10,20<span class="hljs-type">d</span><br>      .  : 表示当前行<br>      $  : 表示最后一行  <br>      +# : 向下的#行<br><br>七、粘贴命令 p<br>   p : 如果删除的或者复制的为整行内容，则粘贴至光标所在行下方；如果删除的或者复制的为非整行，则粘贴至光标所在字符后面<br>   P : 如果删除的或者复制的为整行内容，则粘贴至光标所在行上方；如果删除的或者复制的为非整行，则粘贴至光标所在字符前面<br>    <br>八、复制命令 y<br>   用法和 d 命令一样<br><br>九、修改：先删除内容，再转换成输入模式<br>   c : 用法同 <span class="hljs-type">d</span> 命令<br><br>十、替换：r<br>   r : 替换单个字符，首先输入<span class="hljs-type">r</span>，然后输入需要替换的字符<br>   R : 进入替换模式，在替换模式下，直接输入字符进行替换<br><br>十一、撤销编辑 u<br>   u : 撤销前一次的编辑操作<br>       连续u命令可以撤销此前的n次操作<br>   #u: 直接撤销最近#次编辑命令<br>   <br>   还原最近一次的撤销操作：CTRL+r<br><br>十二、重复此前的编辑操作 .<br>   . <br>   <br>十三、可视化模式<br>   v : 按照字符选取<br>   V : 按照行选取<br>   <br>十四、查找<br>   /PATTERN : 从上往下开始查找 <br>   ?PATTERN : 从下往上开始查找<br>   n : 下一个(往下)<br>   N : 下一个(往上)<br>   <br>十五、查找并替换<br>   在末行模式下使用s命令             <br>   用法：ADDR1,ADDR2,s@PATTERN@string@gi<br>         |     |    |    |     |     |<span class="hljs-comment">---------------------------------------------------&gt; 全局替换还是或略大小写</span><br>         |     |    |    |     |<span class="hljs-comment">--------------------------------------&gt;需要替换的字符串</span><br>         |     |    |    |<span class="hljs-comment">---------------------------&gt; 正则或者字符串</span><br>         |     |    |<span class="hljs-comment">-------------------------&gt; 替换命令</span><br>         |     |<span class="hljs-comment">-------------------------&gt; 结束行</span><br>         |<span class="hljs-comment">-------&gt; 起始行</span><br><br>   <span class="hljs-number">1</span>,$ : 表示全文<br>   %   : 也表示全文<br>   <br>   :%s/cn.ubuntu/mirrors.aliyun/g<br>   <br>十六、使用vim编辑多个文件<br>   vim FILE1 FILE2 FILE3 ...<br>   :next  =&gt; 切换到下一个文件<br>   :prev  =&gt; 切换到上一个文件<br>   :last  =&gt; 切换到最后一个文件<br>   :first =&gt; 切换到第一个文件<br>   :qa 全部退出<br>   <br>十七、分屏显示一个文件<br>   CTRL+w, s : 水平拆分窗口, 先按住<span class="hljs-type">CTRL</span>与w键，松开后按s键<br>   CTRL+w, v : 垂直拆分窗口, 先按住<span class="hljs-type">CTRL</span>与v键，松开后按v键<br>   CTRL+w, ARROW : 在窗口键切换光标，首先按住<span class="hljs-type">CTRL</span>与w键，松开后按方向键<br><br>十八、分窗口显示多个文件<br>   vim -o FILE1 FILE2 ... : 水平分割显示<br>   vim -O FILE1 FILE2 ... : 垂直分割显示<br>   <br>   光标切换同上（十七）<br><br>十九、将当前文件的部分内容另存为另外一个文件<br>   末行模式下使用w命令<br>   :w 保存当前文件<br>   :ADDR1,ADDR2w /PATH/TO/SOMEFILE<br>      |     |          |<br>     起始行 结束行    要保存到哪个文件<br><br>二十、将另外一个文件的内容填充到当前文件中<br>   :r /path/to/somfile<br><br>二十一、跟shell交互<br>   :! COMMAND<br>         |<span class="hljs-comment">--------&gt; shell命令</span><br>         <br>二十二、高级话题<br><span class="hljs-number">1</span>、显示或取消行号<br>   :set number 或者 :set nu  显示行号<br>   :set nonumber 或者:set nonu 取消显示行号<br><br><span class="hljs-number">2</span>、显示忽略或区分大小写<br>   :set ignorecase 或者 :set ic 不区分大小写<br>   :set noignorecase 或者 :set noic 区分大小写<br>   <br><span class="hljs-number">3</span>、设定自动缩进<br>   :set autoindent 或者 :set ai 自动缩进<br>   :set noautoindent 或者 :set noai 取消自动缩进<br><br><span class="hljs-number">4</span>、查到的文本高亮显示或者取消高亮显示<br>   :set hlsearch 设置高亮<br>   :set nohlsearch 取消高亮显示<br>   <br><span class="hljs-number">5</span>、语法着色<br>   :syntax on  开启语法着色<br>   :syntax off 关闭语法着色<br><br>二十三、VIM的配置文件<br>   /etc/vimrc : 全局的配置<br>   ~/.vimrc : 自己的<span class="hljs-type">vim</span>配置  这个文件可能不存在，但是可以自己去建立<br>   <br><br> 二十四：vimtutor<br>   这是一个VIM的教程<br><br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Tools/">Tools</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/28/DevOps/DevOps/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DevOps</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/28/architect/rpc/">
+                        <span class="hidden-mobile">rpc</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appKey":"NOvQqkfNpn6NpGU7zUG0V5sb","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://arc7mtb3.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[],"appid":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appkey":"NOvQqkfNpn6NpGU7zUG0V5sb"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

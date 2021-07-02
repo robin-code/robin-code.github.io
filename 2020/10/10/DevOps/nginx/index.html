@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个普通Java工程师的分享">
+  <meta name="author" content="robin.li">
+  <meta name="keywords" content="Java JavaScript Linux Spring-Boot MySQL Blog ljy">
+  
+  <title>Nginx - robin技术总结</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"robin-code.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","app_key":"NOvQqkfNpn6NpGU7zUG0V5sb","server_url":"https://arc7mtb3.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>robin's space</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Nginx">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-10 11:07" pubdate>
+        星期六 2020年10月10日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Nginx</h1>
+            
+            <div class="markdown-body">
+              <h2 id="nginx三个主要使用场景"><a href="#nginx三个主要使用场景" class="headerlink" title="nginx三个主要使用场景"></a>nginx三个主要使用场景</h2><ul>
+<li>静态资源服务</li>
+<li>反向代理</li>
+<li>api服务</li>
+</ul>
+<h2 id="nginx优点"><a href="#nginx优点" class="headerlink" title="nginx优点"></a>nginx优点</h2><ul>
+<li> 高并发，高性能</li>
+<li> 可扩展性好</li>
+<li> 高可靠性</li>
+<li> 热部署</li>
+<li> BSD许可证</li>
+</ul>
+<h1 id="nginx四个主要作用"><a href="#nginx四个主要作用" class="headerlink" title="nginx四个主要作用"></a>nginx四个主要作用</h1><ul>
+<li>Nginx二级制可执行文件</li>
+<li>Nginx.conf配置文件</li>
+<li>access.log访问日志</li>
+<li>error.log错误日志</li>
+</ul>
+<h2 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h2><h2 id="反向代理配置"><a href="#反向代理配置" class="headerlink" title="反向代理配置"></a>反向代理配置</h2><blockquote>
+<p> mysql代理</p>
+</blockquote>
+<figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><br><span class="hljs-section">stream</span> &#123;<br>    <span class="hljs-attribute">upstream</span> mysql &#123;<br>        <span class="hljs-attribute">server</span> db.nexus.robin-study.top max_fails=<span class="hljs-number">3</span> fail_timeout=<span class="hljs-number">30s</span>;<br>    &#125;<br>    <span class="hljs-section">server</span> &#123;<br>        <span class="hljs-attribute">listen</span> <span class="hljs-number">3306</span>;<br>        <span class="hljs-attribute">proxy_connect_timeout</span> <span class="hljs-number">30s</span>;<br>        <span class="hljs-attribute">proxy_timeout</span> <span class="hljs-number">600s</span>;<br>        <span class="hljs-attribute">proxy_pass</span> <span class="hljs-number">127.0.0.1:3306</span>;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<p>nexus配置</p>
+<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">server &#123;<br>    listen *:<span class="hljs-number">443</span>;<br>    server_name nexus.robin-study.top;<br><br>    <span class="hljs-comment"># allow large uploads of files</span><br>    client_max_body_size <span class="hljs-number">1</span>G;<br>    access_log <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/nginx/</span>nexus_access.log main ;<br>    error_log <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/nginx/</span>nexus_error.log ;<br>    <span class="hljs-comment"># optimize downloading files larger than 1G</span><br>    <span class="hljs-comment">#proxy_max_temp_file_size 2G;</span><br><br>    ssl_certificate <span class="hljs-regexp">/etc/</span>ssl<span class="hljs-regexp">/nexus/</span><span class="hljs-number">1</span>_nexus.robin-study.top_bundle.crt;<br>    ssl_certificate_key <span class="hljs-regexp">/etc/</span>ssl<span class="hljs-regexp">/nexus/</span><span class="hljs-number">2</span>_nexus.robin-study.top.key;<br><br>    location / &#123;<br>        <span class="hljs-comment"># Use IPv4 upstream address instead of DNS name to avoid attempts by nginx to use IPv6 DNS lookup</span><br>        proxy_pass http:<span class="hljs-regexp">//</span><span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">8081</span>/;<br>        proxy_set_header Host <span class="hljs-variable">$host</span>;<br>        proxy_set_header X-Real-IP <span class="hljs-variable">$remote_addr</span>;<br>        proxy_set_header X-Forwarded-For <span class="hljs-variable">$proxy_add_x_forwarded_for</span>;<br>        proxy_set_header X-Forwarded-Proto <span class="hljs-string">&quot;https&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+<ul>
+<li>Oauth配置代理<figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;<br>    <span class="hljs-attribute">listen</span>       <span class="hljs-number">80</span>;<br>    <span class="hljs-attribute">server_name</span> auth.robin-study.top;<br><br>    <span class="hljs-attribute">location</span> / &#123;<br>        <span class="hljs-attribute">proxy_pass</span> http://127.0.0.1:10000 ;<br>        <span class="hljs-attribute">proxy_set_header</span> X-Forwarded-For $proxy_add_x_forwarded_for;<br>        <span class="hljs-attribute">proxy_set_header</span> Host $http_host;<br>        <span class="hljs-attribute">proxy_set_header</span> X-Forwarded-Proto $scheme;<br>        <span class="hljs-attribute">proxy_set_header</span>   X-Real-IP        $remote_addr;                               <span class="hljs-attribute">proxy_set_header</span> X-Forwarded-Proto $scheme;<br>        <span class="hljs-attribute">proxy_set_header</span>   X-Real-IP        $remote_addr;<br><br>        <span class="hljs-attribute">proxy_buffering</span> <span class="hljs-literal">off</span>;<br>        <span class="hljs-attribute">sendfile</span> <span class="hljs-literal">off</span>;<br>        <span class="hljs-attribute">proxy_max_temp_file_size</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-attribute">client_max_body_size</span>       <span class="hljs-number">10m</span>;<br>        <span class="hljs-attribute">client_body_buffer_size</span>    <span class="hljs-number">128k</span>;<br>        <span class="hljs-attribute">proxy_connect_timeout</span>      <span class="hljs-number">90</span>;<br>        <span class="hljs-attribute">proxy_send_timeout</span>         <span class="hljs-number">90</span>;<br>        <span class="hljs-attribute">proxy_read_timeout</span>         <span class="hljs-number">90</span>;<br>        <span class="hljs-attribute">proxy_temp_file_write_size</span> <span class="hljs-number">64k</span>;<br>        <span class="hljs-attribute">proxy_http_version</span> <span class="hljs-number">1</span>.<span class="hljs-number">1</span>;<br>        <span class="hljs-attribute">proxy_request_buffering</span> <span class="hljs-literal">off</span>;<br>    &#125;<br>&#125;<br><br></code></pre></div></td></tr></table></figure>
+<h3 id="https配置"><a href="#https配置" class="headerlink" title="https配置"></a>https配置</h3></li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;<br>     <span class="hljs-comment">#SSL 访问端口号为 443</span><br>     <span class="hljs-attribute">listen</span> <span class="hljs-number">443</span> ssl;<br>     <span class="hljs-comment">#填写绑定证书的域名</span><br>     <span class="hljs-attribute">server_name</span> robin-study.top;<br>     <span class="hljs-comment">#证书文件名称</span><br>     <span class="hljs-attribute">ssl_certificate</span> /etc/ssl/1_robin-study.top_bundle.crt;<br>     <span class="hljs-comment">#私钥文件名称</span><br>     <span class="hljs-attribute">ssl_certificate_key</span> /etc/ssl/2_robin-study.top.key;<br>     <span class="hljs-attribute">ssl_session_timeout</span> <span class="hljs-number">5m</span>;<br>     <span class="hljs-comment">#请按照以下协议配置</span><br>     <span class="hljs-attribute">ssl_protocols</span> TLSv1 TLSv1.<span class="hljs-number">1</span> TLSv1.<span class="hljs-number">2</span>;<br>     <span class="hljs-comment">#请按照以下套件配置，配置加密套件，写法遵循 openssl 标准。</span><br>     <span class="hljs-attribute">ssl_ciphers</span> ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;<br>     <span class="hljs-attribute">ssl_prefer_server_ciphers</span> <span class="hljs-literal">on</span>;<br>     <span class="hljs-attribute">location</span> / &#123;<br>        <span class="hljs-comment">#网站主页路径。此路径仅供参考，具体请您按照实际目录操作。</span><br>         <span class="hljs-attribute">root</span> /usr/share/nginx/html;<br>         <span class="hljs-attribute">index</span>  index.html index.htm;<br>     &#125;<br> &#125;<br></code></pre></div></td></tr></table></figure>
+
+
+<h3 id="http-–-gt-https"><a href="#http-–-gt-https" class="headerlink" title="http –&gt; https"></a>http –&gt; https</h3><figure class="highlight perl"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs perl">- 方法一 指定站点 <span class="hljs-number">301</span>重定向<br>server&#123;<br>	<span class="hljs-keyword">listen</span> <span class="hljs-number">80</span> ;<br>	server_name robin-study.top<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">301</span> https:<span class="hljs-regexp">//r</span>obin-study.top$request_uri;<br>&#125;<br><br><br>- 重定向所有请求到https<br><br>server &#123;<br>	<span class="hljs-keyword">listen</span> <span class="hljs-number">80</span> default_server;<br>	<span class="hljs-keyword">listen</span> [::]:<span class="hljs-number">80</span> default_server;<br>	server_name <span class="hljs-number">_</span>;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">301</span> https:<span class="hljs-regexp">//</span>$host$request_uri;<br>&#125;<br><br><br></code></pre></div></td></tr></table></figure>
+
+
+
+
+
+<h2 id="nginx免费版vs商业版"><a href="#nginx免费版vs商业版" class="headerlink" title="nginx免费版vs商业版"></a>nginx免费版vs商业版</h2><p>nginx-plus商业版<br>Tengine 阿里定制的Nginx<br>OpenResty 免费商业版</p>
+<h2 id="编译nginx"><a href="#编译nginx" class="headerlink" title="编译nginx"></a>编译nginx</h2><p>./config – help | more</p>
+<ul>
+<li>–with_**——module 默认不会包含的模块</li>
+<li>–without_moudle 默认会包含的模块</li>
+<li></li>
+</ul>
+<p>默认参数编译</p>
+<p>指定安装文件位置</p>
+<p><code>./configure --prefix=/usr/local/nginx/nginx-1</code></p>
+<figure class="highlight vim"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vim">Configuration summary<br>  + using <span class="hljs-built_in">system</span> PCRE library<br>  + OpenSSL library <span class="hljs-keyword">is</span> not used<br>  + using <span class="hljs-built_in">system</span> zlib library<br><br>  nginx path prefix: <span class="hljs-string">&quot;/usr/local/nginx/nginx-1&quot;</span><br>  nginx binary <span class="hljs-keyword">file</span>: <span class="hljs-string">&quot;/usr/local/nginx/nginx-1/sbin/nginx&quot;</span><br>  nginx modules path: <span class="hljs-string">&quot;/usr/local/nginx/nginx-1/modules&quot;</span><br>  nginx configuration prefix: <span class="hljs-string">&quot;/usr/local/nginx/nginx-1/conf&quot;</span><br>  nginx configuration <span class="hljs-keyword">file</span>: <span class="hljs-string">&quot;/usr/local/nginx/nginx-1/conf/nginx.conf&quot;</span><br>  nginx pid <span class="hljs-keyword">file</span>: <span class="hljs-string">&quot;/usr/local/nginx/nginx-1/logs/nginx.pid&quot;</span><br>  nginx error <span class="hljs-built_in">log</span> <span class="hljs-keyword">file</span>: <span class="hljs-string">&quot;/usr/local/nginx/nginx-1/logs/error.log&quot;</span><br>  nginx http access <span class="hljs-built_in">log</span> <span class="hljs-keyword">file</span>: <span class="hljs-string">&quot;/usr/local/nginx/nginx-1/logs/access.log&quot;</span><br>  nginx http client request body temporary <span class="hljs-keyword">file</span><span class="hljs-variable">s:</span> <span class="hljs-string">&quot;client_body_temp&quot;</span><br>  nginx http proxy temporary <span class="hljs-keyword">file</span><span class="hljs-variable">s:</span> <span class="hljs-string">&quot;proxy_temp&quot;</span><br>  nginx http fastcgi temporary <span class="hljs-keyword">file</span><span class="hljs-variable">s:</span> <span class="hljs-string">&quot;fastcgi_temp&quot;</span><br>  nginx http uwsgi temporary <span class="hljs-keyword">file</span><span class="hljs-variable">s:</span> <span class="hljs-string">&quot;uwsgi_temp&quot;</span><br>  nginx http scgi temporary <span class="hljs-keyword">file</span><span class="hljs-variable">s:</span> <span class="hljs-comment">&quot;scgi_temp</span><br> <br></code></pre></div></td></tr></table></figure>
+
+<p>生成中间文件 ‘objs’ 主要是模块信息</p>
+<p>make编译<br>make install 安装</p>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><h3 id="静态资源web服务器"><a href="#静态资源web服务器" class="headerlink" title="静态资源web服务器"></a>静态资源web服务器</h3><p>打开gzip 传输文件小很多，提升性能</p>
+<p> location: </p>
+<ul>
+<li><p>alias dlib/；</p>
+</li>
+<li><p>audoindex on;</p>
+</li>
+<li><p>set $limt_rate 1k;  # core模块有一个变量,每秒传输的字节数</p>
+</li>
+<li><p>access_log logs/robin.access.log main;</p>
+</li>
+</ul>
+<p> log_form日志格式</p>
+<h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><p>启动之前验证配置是否正确</p>
+<p><code>nginx -t</code> 或者</p>
+<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">sudo <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/Cellar/</span>nginx<span class="hljs-regexp">/1.17.7/</span>bin<span class="hljs-regexp">/nginx -t -c /u</span>sr<span class="hljs-regexp">/local/</span>etc<span class="hljs-regexp">/nginx/</span>nginx.conf <br></code></pre></div></td></tr></table></figure>
+
+<h2 id="basic-command"><a href="#basic-command" class="headerlink" title="basic command"></a>basic command</h2><ol>
+<li> 查看版本<br><code> nginx -v</code></li>
+<li> 指定配置文件<br><code> nginx -c filename</code></li>
+<li>帮助<br><code>nginx -h</code></li>
+<li>重新加载配置|重启|停止|退出 nginx<br><code>nginx -s reload|reopen|stop|qu</code></li>
+</ol>
+<p>配置正确日志</p>
+<figure class="highlight gradle"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs gradle">nginx: the configuration <span class="hljs-keyword">file</span> <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/etc/</span>nginx/nginx.conf syntax is ok <br>nginx: configuration <span class="hljs-keyword">file</span> <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/etc/</span>nginx/nginx.conf test is successfu<br>````<br><br><br>##关闭nginx<br>&gt; ps -ef|<span class="hljs-keyword">grep</span> nginx 查找进程id<br><br>- kill -QUIT <span class="hljs-number">72</span> (从容的停止，即不会立刻停止)<br>- Kill -TERM <span class="hljs-number">72</span> （立刻停止）<br>- Kill -<span class="hljs-keyword">INT</span> <span class="hljs-number">72</span> （和上面一样，也是立刻停止）<br><br>## centos8 install nginx<br><br></code></pre></div></td></tr></table></figure>
+<p>sudo yum install nginx<br>sudo systemctl enable nginx<br>sudo systemctl start nginx<br>sudo systemctl status nginx</p>
+<p>开启防火墙</p>
+<p>sudo firewall-cmd –permanent –zone=public –add-service=http<br>sudo firewall-cmd –permanent –zone=public –add-service=https<br>sudo firewall-cmd –reload</p>
+<div class="hljs code-wrapper"><pre><code>
+</code></pre></div>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/DevOps/">DevOps</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Nginx/">Nginx</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appKey":"NOvQqkfNpn6NpGU7zUG0V5sb","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://arc7mtb3.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[],"appid":"aRc7Mtb3MMWTi3GHrgOQXigt-gzGzoHsz","appkey":"NOvQqkfNpn6NpGU7zUG0V5sb"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
